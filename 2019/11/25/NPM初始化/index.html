@@ -98,7 +98,7 @@
 
 
 <ul>
-    <li><div class="all active">全部文章<small>(3)</small></div></li>
+    <li><div class="all active">全部文章<small>(5)</small></div></li>
     
         
             
@@ -107,6 +107,26 @@
                     <ul class="sub hide">
                         
                         <li><div data-rel="NPM">NPM<small>(2)</small></div>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+            <li><div data-rel="python"><i class="fold iconfont icon-right"></i>python<small>(2)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="30-seconds-of-python">30-seconds-of-python<small>(2)</small></div>
                             
                         </li>
                             
@@ -130,8 +150,8 @@
     </div>
     <div></div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="3">
-<input type="hidden" id="yelog_site_word_count" value="670">
+<input type="hidden" id="yelog_site_posts_number" value="5">
+<input type="hidden" id="yelog_site_word_count" value="1k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -175,6 +195,14 @@
     <nav id="title-list-nav">
         
         <a  class="VUE NPM "
+           href="/2019/11/25/NPM%E5%88%9D%E5%A7%8B%E5%8C%96/"
+           data-tag="npm"
+           data-author="" >
+            <span class="post-title" title="NPM初始化">NPM初始化</span>
+            <span class="post-date" title="2019-11-25 22:45:24">2019/11/25</span>
+        </a>
+        
+        <a  class="VUE NPM "
            href="/2019/11/25/NPM%E5%AE%89%E8%A3%85%E6%A8%A1%E5%9D%97/"
            data-tag="npm"
            data-author="" >
@@ -182,12 +210,12 @@
             <span class="post-date" title="2019-11-25 23:32:37">2019/11/25</span>
         </a>
         
-        <a  class="VUE NPM "
-           href="/2019/11/25/NPM%E5%88%9D%E5%A7%8B%E5%8C%96/"
-           data-tag="npm"
+        <a  class="python 30-seconds-of-python "
+           href="/2019/11/26/30-seconds-of-python%E4%B9%8Blist/"
+           data-tag=""
            data-author="" >
-            <span class="post-title" title="NPM初始化">NPM初始化</span>
-            <span class="post-date" title="2019-11-25 22:45:24">2019/11/25</span>
+            <span class="post-title" title="30-seconds-of-python之list">30-seconds-of-python之list</span>
+            <span class="post-date" title="2019-11-26 21:50:40">2019/11/26</span>
         </a>
         
         <a  class=""
@@ -196,6 +224,14 @@
            data-author="" >
             <span class="post-title" title="Hello World">Hello World</span>
             <span class="post-date" title="2019-11-19 23:48:31">2019/11/19</span>
+        </a>
+        
+        <a  class="python 30-seconds-of-python "
+           href="/2019/11/26/30-seconds-of-python%E7%AE%80%E8%BF%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="30-seconds-of-python简述">30-seconds-of-python简述</span>
+            <span class="post-date" title="2019-11-26 21:21:05">2019/11/26</span>
         </a>
         
     </nav>
@@ -236,12 +272,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-26 00:06:44'>2019-11-25 22:45</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-26 22:52:13'>2019-11-25 22:45</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:297</span>
+        <span>字数:306</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -277,7 +313,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h4 id="1-1-NPM初始化项目"><a href="#1-1-NPM初始化项目" class="headerlink" title="1.1 NPM初始化项目"></a>1.1 NPM初始化项目</h4><ul>
-<li>npm init 初始化项目<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建目录</span></span><br><span class="line">$ mkdir -p npm/demo</span><br><span class="line"><span class="comment"># 进入刚才创建的目录</span></span><br><span class="line">$ <span class="built_in">cd</span> !$</span><br><span class="line"><span class="comment"># 交互式初始化项目</span></span><br><span class="line">$ npm init</span><br><span class="line">This utility will walk you through creating a package.json file.</span><br><span class="line">It only covers the most common items, and tries to guess sensible defaults.</span><br><span class="line"></span><br><span class="line">See `npm <span class="built_in">help</span> json` <span class="keyword">for</span> definitive documentation on these fields</span><br><span class="line">and exactly what they <span class="keyword">do</span>.</span><br><span class="line"></span><br><span class="line">Use `npm install &lt;pkg&gt;` afterwards to install a package and</span><br><span class="line">save it as a dependency <span class="keyword">in</span> the package.json file.</span><br><span class="line"></span><br><span class="line">Press ^C at any time to quit. &lt;= 下面<span class="string">"()"</span>内为默认值，如需修改直接键入值即可</span><br><span class="line">package name: (demo)   &lt;= 这是输入当前项目名称, 不能用大写可以用<span class="string">"-"</span></span><br><span class="line">version: (1.0.0)    &lt;= 当前项目的版本号</span><br><span class="line">description: MyFirstDemo    &lt;= 简单描述</span><br><span class="line">entry point: (index.js) &lt;= 项目的入口文件，就好比静态网站的index.html</span><br><span class="line"><span class="built_in">test</span> <span class="built_in">command</span>:</span><br><span class="line">git repository: &lt;= 这里可以写git仓库地址用于上传</span><br><span class="line">keywords:</span><br><span class="line">author: &lt;= 这里可以输入坐着名称</span><br><span class="line">license: (ISC)  &lt;= 许可证类型</span><br><span class="line">About to write to /Users/aron/npm/demo/package.json:</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"demo"</span>,</span><br><span class="line">  <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="string">"description"</span>: <span class="string">"MyFirstDemo"</span>,</span><br><span class="line">  <span class="string">"main"</span>: <span class="string">"index.js"</span>,</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"test"</span>: <span class="string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"author"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="string">"license"</span>: <span class="string">"ISC"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Is this OK? (yes) yes   &lt;=这里输入<span class="string">"yes"</span></span><br><span class="line"></span><br><span class="line">$ ls</span><br><span class="line">package.json</span><br></pre></td></tr></table></figure></li>
+<li>npm init 初始化项目<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建目录</span></span><br><span class="line">$ mkdir -p npm/demo</span><br><span class="line"><span class="comment"># 进入刚才创建的目录</span></span><br><span class="line">$ <span class="built_in">cd</span> !$</span><br><span class="line"><span class="comment"># 交互式初始化项目</span></span><br><span class="line">$ npm init</span><br><span class="line">This utility will walk you through creating a package.json file.</span><br><span class="line">It only covers the most common items, and tries to guess sensible defaults.</span><br><span class="line"></span><br><span class="line">See `npm <span class="built_in">help</span> json` <span class="keyword">for</span> definitive documentation on these fields</span><br><span class="line">and exactly what they <span class="keyword">do</span>.</span><br><span class="line"></span><br><span class="line">Use `npm install &lt;pkg&gt;` afterwards to install a package and</span><br><span class="line">save it as a dependency <span class="keyword">in</span> the package.json file.</span><br><span class="line"></span><br><span class="line">Press ^C at any time to quit. &lt;= 下面<span class="string">"()"</span>内为默认值，如需修改直接键入值即可</span><br><span class="line">package name: (demo)   &lt;= 这是输入当前项目名称,默认为当前目录名称，不能用大写可以用<span class="string">"-"</span></span><br><span class="line">version: (1.0.0)    &lt;= 当前项目的版本号</span><br><span class="line">description: MyFirstDemo    &lt;= 简单描述</span><br><span class="line">entry point: (index.js) &lt;= 项目的入口文件，就好比静态网站的index.html</span><br><span class="line"><span class="built_in">test</span> <span class="built_in">command</span>:</span><br><span class="line">git repository: &lt;= 这里可以写git仓库地址用于上传</span><br><span class="line">keywords:</span><br><span class="line">author: &lt;= 这里可以输入坐着名称</span><br><span class="line">license: (ISC)  &lt;= 许可证类型</span><br><span class="line">About to write to /Users/aron/npm/demo/package.json:</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"demo"</span>,</span><br><span class="line">  <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="string">"description"</span>: <span class="string">"MyFirstDemo"</span>,</span><br><span class="line">  <span class="string">"main"</span>: <span class="string">"index.js"</span>,</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"test"</span>: <span class="string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"author"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="string">"license"</span>: <span class="string">"ISC"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Is this OK? (yes) yes   &lt;=这里输入<span class="string">"yes"</span></span><br><span class="line"></span><br><span class="line">$ ls</span><br><span class="line">package.json</span><br></pre></td></tr></table></figure></li>
 <li>自动初始化项目，均为默认值<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init -y</span><br></pre></td></tr></table></figure>
 
 
@@ -297,10 +333,10 @@
 
 <div class="article_copyright">
     <p><span class="copy-title">文章标题:</span>NPM初始化</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">297</span></p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">306</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="Aaron">Aaron</a></p>
     <p><span class="copy-title">发布时间:</span>2019-11-25, 22:45:24</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-26, 00:06:44</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-26, 22:52:13</p>
     <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/25/NPM%E5%88%9D%E5%A7%8B%E5%8C%96/" title="NPM初始化">http://blog.linuxerbulo.com/2019/11/25/NPM%E5%88%9D%E5%A7%8B%E5%8C%96/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
