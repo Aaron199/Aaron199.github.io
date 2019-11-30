@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>404 | 小新运维手札</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="404 | 小新运维手札">
+  <title>Vue.js 介绍 | 小新运维手札</title>
+  <meta name="keywords" content=" vue ">
+  <meta name="description" content="Vue.js 介绍 | 小新运维手札">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="你来到了没有知识的荒原 :(">
 <meta name="keywords" content="Linux,运维,k8s,python,shell">
@@ -266,24 +266,36 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="404-" class="article article-type-404" itemscope itemprop="blogPost">
+        <article id="post-Vue-js-介绍" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">404</h1>
+        <h1 class="article-title">Vue.js 介绍</h1>
     
     <div class="article-meta">
         
         
         
+        <span class="book">
+            
+                <a  data-rel="VUE">VUE</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color4">vue</a>
+            
+        </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-20 23:21:47'>2019-07-19 16:41</time>
+        创建时间:<time class="date" title='更新时间: 2019-11-30 11:24:05'>2019-11-30 11:08</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:0</span>
+        <span>字数:103</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -318,7 +330,27 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <ul>
+<li>Vue是什么<ul>
+<li>是一套用于构建用户界面的渐进式框架</li>
+</ul>
+</li>
+<li>渐进式框架<ul>
+<li>所谓渐进式代表的是最少使用，用到那个特性就安装对应的组件,也可以安装全部</li>
+</ul>
+</li>
+<li>Vue的其他优点<ul>
+<li>体积小,代码简介</li>
+<li>无DOM操作，开发效率高</li>
+</ul>
+</li>
+<li>Vue使用场景<ul>
+<li>单页面应用开发</li>
+</ul>
+</li>
+</ul>
+<p>VUE官网： <a href="https://cn.vuejs.org/v2/guide/" target="_blank" rel="noopener">https://cn.vuejs.org/v2/guide/</a>   </p>
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
     </div>
@@ -330,10 +362,62 @@
 </p>
 
 
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Vue.js 介绍</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">103</span></p>
+    <p><span class="copy-title">本文作者:</span><a  title="Aaron">Aaron</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-11-30, 11:08:00</p>
+    <p><span class="copy-title">最后更新:</span>2019-11-30, 11:24:05</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/30/Vue-js-%E4%BB%8B%E7%BB%8D/" title="Vue.js 介绍">http://blog.linuxerbulo.com/2019/11/30/Vue-js-%E4%BB%8B%E7%BB%8D/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
 
 
 
 
+
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
     
 
 
