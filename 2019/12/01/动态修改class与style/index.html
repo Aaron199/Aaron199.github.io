@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>30-seconds-of-python简述 | 小新运维手札</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="30-seconds-of-python简述 | 小新运维手札">
+  <title>动态修改class与style | 小新运维手札</title>
+  <meta name="keywords" content=" vue ">
+  <meta name="description" content="动态修改class与style | 小新运维手札">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="你来到了没有知识的荒原 :(">
 <meta name="keywords" content="Linux,运维,k8s,python,shell">
@@ -282,9 +282,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-30-seconds-of-python简述" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-动态修改class与style" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">30-seconds-of-python简述</h1>
+        <h1 class="article-title">动态修改class与style</h1>
     
     <div class="article-meta">
         
@@ -292,22 +292,26 @@
         
         <span class="book">
             
-                <a  data-rel="python">python</a>/
-            
-                <a  data-rel="30-seconds-of-python">30-seconds-of-python</a>
+                <a  data-rel="VUE">VUE</a>
             
         </span>
         
         
+        <span class="tag">
+            
+            <a class="color4">vue</a>
+            
+        </span>
+        
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-26 21:49:51'>2019-11-26 21:21</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-01 12:31:33'>2019-12-01 12:02</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:80</span>
+        <span>字数:293</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -326,7 +330,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#语法格式"><span class="toc-text">语法格式</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -342,7 +346,27 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>“30-seconds-of-python”是github上比较火的开源项目，有将近6000Star数，里面主要给出了很多短小而且实用的python例子，是非常不错的python学习资料，在这里呢我只是简短的翻译加上个人的理解和大家一起分享。<br><a href="https://github.com/30-seconds/30-seconds-of-python" target="_blank" rel="noopener">原文地址</a></p>
+        <h3 id="语法格式"><a href="#语法格式" class="headerlink" title="语法格式"></a>语法格式</h3><ul>
+<li><p>v-bind:class=”表达式”或:class=”表达式”</p>
+<ul>
+<li>表达式可以是：<ul>
+<li>字符串 :class=”activeClass”，activeClass是data中定义的属性</li>
+<li>对象 :class=”{active:isActive}”, active是样式名称，isActive是data中定义的属性取值为[true|false],代表是否应用</li>
+<li>列表 :class=”[‘active’,’error’]”, active,error都是样式名称表示同时应用这些名称</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>v-bind:style=”表达式”或:class=”表达式”</p>
+<ul>
+<li><p>style的表达式一般为对象</p>
+<p>  :style=”{color: colorStr,fontSize: fountSize+’px’}”</p>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">        样式一：<span class="tag">&lt;<span class="name">span</span> <span class="attr">v-bind:class</span>=<span class="string">"activeClass"</span>&gt;</span>Hello,World<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">        样式二：<span class="tag">&lt;<span class="name">span</span> <span class="attr">v-bind:class</span>=<span class="string">"&#123;active:isActive,error:isError&#125;"</span>&gt;</span>Hello,World<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">        样式三<span class="tag">&lt;<span class="name">span</span> <span class="attr">v-bind:cass</span>=<span class="string">"['delete','error']"</span>&gt;</span>Hello,World<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--fontSize代表font-size属性，backgroundColor代表background-color</span></span><br><span class="line"><span class="comment">        就是说如果属性名称中有连字符"-"的要去掉"-"后面的单词首字符大写--&gt;</span></span><br><span class="line">        style样式<span class="tag">&lt;<span class="name">span</span> <span class="attr">v-bind:style</span>=<span class="string">"&#123;color: colorStr,fontSize: fontSize+'px',backgroundColor:bgcolor&#125;"</span>&gt;</span>Hello,World<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"node_modules/vue/dist/vue.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">        <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="actionscript">            el: <span class="string">"#app"</span>,</span></span><br><span class="line">            data: &#123;</span><br><span class="line"><span class="actionscript">                activeClass: <span class="string">"active"</span>,</span></span><br><span class="line"><span class="actionscript">                isActive:<span class="literal">true</span>,</span></span><br><span class="line"><span class="actionscript">                isError:<span class="literal">true</span>,</span></span><br><span class="line"><span class="actionscript">                colorStr:<span class="string">"yellow"</span>,</span></span><br><span class="line">                fontSize:50,</span><br><span class="line"><span class="actionscript">                bgcolor:<span class="string">'blue'</span></span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
@@ -356,12 +380,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>30-seconds-of-python简述</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">80</span></p>
+    <p><span class="copy-title">文章标题:</span>动态修改class与style</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">293</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="Aaron">Aaron</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-11-26, 21:21:05</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-26, 21:49:51</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/26/30-seconds-of-python%E7%AE%80%E8%BF%B0/" title="30-seconds-of-python简述">http://blog.linuxerbulo.com/2019/11/26/30-seconds-of-python%E7%AE%80%E8%BF%B0/</a>
+    <p><span class="copy-title">发布时间:</span>2019-12-01, 12:02:58</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-01, 12:31:33</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/01/%E5%8A%A8%E6%80%81%E4%BF%AE%E6%94%B9class%E4%B8%8Estyle/" title="动态修改class与style">http://blog.linuxerbulo.com/2019/12/01/%E5%8A%A8%E6%80%81%E4%BF%AE%E6%94%B9class%E4%B8%8Estyle/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
