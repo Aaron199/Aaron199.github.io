@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>30-seconds-of-python之list | 小新运维手札</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="30-seconds-of-python之list | 小新运维手札">
+  <title>vue过度动画和自定义指令 | 小新运维手札</title>
+  <meta name="keywords" content=" vue ">
+  <meta name="description" content="vue过度动画和自定义指令 | 小新运维手札">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="你来到了没有知识的荒原 :(">
 <meta name="keywords" content="Linux,运维,k8s,python,shell">
@@ -290,9 +290,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-30-seconds-of-python之list" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-vue过度动画和自定义指令" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">30-seconds-of-python之list</h1>
+        <h1 class="article-title">vue过度动画和自定义指令</h1>
     
     <div class="article-meta">
         
@@ -300,22 +300,26 @@
         
         <span class="book">
             
-                <a  data-rel="python">python</a>/
-            
-                <a  data-rel="30-seconds-of-python">30-seconds-of-python</a>
+                <a  data-rel="VUE">VUE</a>
             
         </span>
         
         
+        <span class="tag">
+            
+            <a class="color4">vue</a>
+            
+        </span>
+        
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-26 21:58:54'>2019-11-26 21:50</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-03 23:12:12'>2019-12-03 22:56</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:26</span>
+        <span>字数:288</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -334,7 +338,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#list"><span class="toc-text">list</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#all-equal"><span class="toc-text">all_equal</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#过度动画"><span class="toc-text">过度动画</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -350,8 +354,25 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="list"><a href="#list" class="headerlink" title="list"></a>list</h2><h3 id="all-equal"><a href="#all-equal" class="headerlink" title="all_equal"></a>all_equal</h3><p>检查所有元素的值都是相等,lst[1:]和lst[:-1]</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">all_equal</span><span class="params">(lst)</span>:</span></span><br><span class="line">  <span class="keyword">return</span> lst[<span class="number">1</span>:] == lst[:<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+        <h3 id="过度动画"><a href="#过度动画" class="headerlink" title="过度动画"></a>过度动画</h3><p>元素在显示和隐藏时的动态效果，常用的效果都是有css实现</p>
+<ul>
+<li>在css中操作transition或animatio达到不同效果</li>
+<li>在目标元素添加父级元素<transition name='xxx'> ,通过父元素自动应用class类名达到效果</li>
+<li>过滤与动画时，会为元素动态添加相应css<ul>
+<li>xxx-enter: 定义显示前的效果</li>
+<li>xxx-enter-active:定义显示过程的效果</li>
+<li>xxx-enter-to: 显示后的凶过</li>
+<li>xxx-leave: 隐藏前的效果</li>
+<li>xxx-leave-active: 定义吟唱时的效果</li>
+<li>xxx-leave-to: 隐藏后的效果</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/transition.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        .sh-enter-active&#123;</span><br><span class="line">            transition:  5s;</span><br><span class="line">        &#125;</span><br><span class="line">        .sh-leave-active &#123;</span><br><span class="line">            transition:  0.5s;</span><br><span class="line">        &#125;</span><br><span class="line">        .sh-enter, .sh-leave-to&#123;</span><br><span class="line">            opacity: 0;</span><br><span class="line">            transform: translateX(10px);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">        &lt;button @click=&quot;show = ! show&quot;&gt;显示/隐藏&lt;/button&gt;</span><br><span class="line">        &lt;transition name=&quot;sh&quot;&gt;</span><br><span class="line">            &lt;p v-show=&quot;show&quot;&gt;hello, world&lt;/p&gt;</span><br><span class="line">        &lt;/transition&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;script src=&quot;node_modules/vue/dist/vue.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        var vm = new Vue(&#123;</span><br><span class="line">            el: &quot;#app&quot;,</span><br><span class="line">            data: &#123;</span><br><span class="line">                show: true</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+
+
 
 
       
@@ -366,12 +387,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>30-seconds-of-python之list</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">26</span></p>
+    <p><span class="copy-title">文章标题:</span>vue过度动画和自定义指令</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">288</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="Aaron">Aaron</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-11-26, 21:50:40</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-26, 21:58:54</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/26/30-seconds-of-python%E4%B9%8Blist/" title="30-seconds-of-python之list">http://blog.linuxerbulo.com/2019/11/26/30-seconds-of-python%E4%B9%8Blist/</a>
+    <p><span class="copy-title">发布时间:</span>2019-12-03, 22:56:22</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-03, 23:12:12</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/03/vue%E8%BF%87%E5%BA%A6%E5%8A%A8%E7%94%BB%E5%92%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/" title="vue过度动画和自定义指令">http://blog.linuxerbulo.com/2019/12/03/vue%E8%BF%87%E5%BA%A6%E5%8A%A8%E7%94%BB%E5%92%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
