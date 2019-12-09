@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>NPM初始化 | 小新运维手札</title>
-  <meta name="keywords" content=" npm ">
-  <meta name="description" content="NPM初始化 | 小新运维手札">
+  <title>Vue-自定义插件 | 小新运维手札</title>
+  <meta name="keywords" content=" vue ">
+  <meta name="description" content="Vue-自定义插件 | 小新运维手札">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="你来到了没有知识的荒原 :(">
 <meta name="keywords" content="Linux,运维,k8s,python,shell">
@@ -330,9 +330,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-NPM初始化" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Vue-自定义插件" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">NPM初始化</h1>
+        <h1 class="article-title">Vue-自定义插件</h1>
     
     <div class="article-meta">
         
@@ -347,19 +347,19 @@
         
         <span class="tag">
             
-            <a class="color4">npm</a>
+            <a class="color4">vue</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-30 11:08:29'>2019-11-25 22:45</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-08 23:32:56'>2019-12-08 22:47</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:306</span>
+        <span>字数:251</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -378,7 +378,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-NPM初始化项目"><span class="toc-text">1.1 NPM初始化项目</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义插件"><span class="toc-text">自定义插件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#插件的作用"><span class="toc-text">插件的作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#演示"><span class="toc-text">演示</span></a></li></ol></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -394,13 +394,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="1-1-NPM初始化项目"><a href="#1-1-NPM初始化项目" class="headerlink" title="1.1 NPM初始化项目"></a>1.1 NPM初始化项目</h4><ul>
-<li>npm init 初始化项目<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建目录</span></span><br><span class="line">$ mkdir -p npm/demo</span><br><span class="line"><span class="comment"># 进入刚才创建的目录</span></span><br><span class="line">$ <span class="built_in">cd</span> !$</span><br><span class="line"><span class="comment"># 交互式初始化项目</span></span><br><span class="line">$ npm init</span><br><span class="line">This utility will walk you through creating a package.json file.</span><br><span class="line">It only covers the most common items, and tries to guess sensible defaults.</span><br><span class="line"></span><br><span class="line">See `npm <span class="built_in">help</span> json` <span class="keyword">for</span> definitive documentation on these fields</span><br><span class="line">and exactly what they <span class="keyword">do</span>.</span><br><span class="line"></span><br><span class="line">Use `npm install &lt;pkg&gt;` afterwards to install a package and</span><br><span class="line">save it as a dependency <span class="keyword">in</span> the package.json file.</span><br><span class="line"></span><br><span class="line">Press ^C at any time to quit. &lt;= 下面<span class="string">"()"</span>内为默认值，如需修改直接键入值即可</span><br><span class="line">package name: (demo)   &lt;= 这是输入当前项目名称,默认为当前目录名称，不能用大写可以用<span class="string">"-"</span></span><br><span class="line">version: (1.0.0)    &lt;= 当前项目的版本号</span><br><span class="line">description: MyFirstDemo    &lt;= 简单描述</span><br><span class="line">entry point: (index.js) &lt;= 项目的入口文件，就好比静态网站的index.html</span><br><span class="line"><span class="built_in">test</span> <span class="built_in">command</span>:</span><br><span class="line">git repository: &lt;= 这里可以写git仓库地址用于上传</span><br><span class="line">keywords:</span><br><span class="line">author: &lt;= 这里可以输入坐着名称</span><br><span class="line">license: (ISC)  &lt;= 许可证类型</span><br><span class="line">About to write to /Users/aron/npm/demo/package.json:</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"demo"</span>,</span><br><span class="line">  <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="string">"description"</span>: <span class="string">"MyFirstDemo"</span>,</span><br><span class="line">  <span class="string">"main"</span>: <span class="string">"index.js"</span>,</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"test"</span>: <span class="string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"author"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="string">"license"</span>: <span class="string">"ISC"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Is this OK? (yes) yes   &lt;=这里输入<span class="string">"yes"</span></span><br><span class="line"></span><br><span class="line">$ ls</span><br><span class="line">package.json</span><br></pre></td></tr></table></figure></li>
-<li>自动初始化项目，均为默认值<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init -y</span><br></pre></td></tr></table></figure>
+        <h2 id="自定义插件"><a href="#自定义插件" class="headerlink" title="自定义插件"></a>自定义插件</h2><h4 id="插件的作用"><a href="#插件的作用" class="headerlink" title="插件的作用"></a>插件的作用</h4><ol>
+<li>插件通常为全局作用,一般添加全局方法/全局指令/全局过滤器</li>
+<li>Vue中使用install方法进行全局添加</li>
+<li>通过全局方法Vue.use()使用插件</li>
+</ol>
+<h4 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h4><p>plugin.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 声明MyPlugin插件对象</span></span><br><span class="line">    <span class="keyword">const</span> MyPlugin = &#123;&#125;</span><br><span class="line">    MyPlugin.install = <span class="function"><span class="keyword">function</span> (<span class="params">Vue, options</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 添加全局方法</span></span><br><span class="line">        Vue.myGlobalMethod  = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            alert(<span class="string">'MyPlusgin插件全局方法'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 添加全局指令</span></span><br><span class="line">        Vue.directive(<span class="string">'my-directive'</span>,&#123;</span><br><span class="line">            inserted:<span class="function"><span class="keyword">function</span> (<span class="params">el, binding</span>) </span>&#123;</span><br><span class="line">                el.innerHTML = <span class="string">"MyPlugin 插件 my-directive:"</span>+binding.value</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="comment">// 添加实例方法</span></span><br><span class="line">        Vue.prototype.$myMethod = <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">            alert(<span class="string">'Vue 实例方法myMethod被调用'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 将组件添加到window中</span></span><br><span class="line">    <span class="built_in">window</span>.MyPlugin = MyPlugin</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p>自定义插件.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">v-my-directive</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"node_modules/vue/dist/vue.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"plugins.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="handlebars"><span class="xml">        <span class="comment">&lt;!-- 引入插件--&gt;</span></span></span></span><br><span class="line">        Vue.use(MyPlugin)</span><br><span class="line"><span class="actionscript">        <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="actionscript">            el: <span class="string">"#app"</span>,</span></span><br><span class="line">            data: &#123;</span><br><span class="line"><span class="actionscript">                content: <span class="string">'hello'</span></span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line"><span class="actionscript">        vm.$myMethod(<span class="string">'ttt'</span>)</span></span><br><span class="line">        Vue.myGlobalMethod()</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 
-</li>
-</ul>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
@@ -414,12 +418,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>NPM初始化</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">306</span></p>
+    <p><span class="copy-title">文章标题:</span>Vue-自定义插件</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">251</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="Aaron">Aaron</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-11-25, 22:45:24</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-30, 11:08:29</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/25/NPM%E5%88%9D%E5%A7%8B%E5%8C%96/" title="NPM初始化">http://blog.linuxerbulo.com/2019/11/25/NPM%E5%88%9D%E5%A7%8B%E5%8C%96/</a>
+    <p><span class="copy-title">发布时间:</span>2019-12-08, 22:47:27</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-08, 23:32:56</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/08/Vue-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8F%92%E4%BB%B6/" title="Vue-自定义插件">http://blog.linuxerbulo.com/2019/12/08/Vue-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8F%92%E4%BB%B6/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
