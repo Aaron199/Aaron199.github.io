@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Vue Devtools | 小新运维手札</title>
-  <meta name="keywords" content=" vue ">
-  <meta name="description" content="Vue Devtools | 小新运维手札">
+  <title>接口使用说明 | 小新运维手札</title>
+  <meta name="keywords" content=" python , django ">
+  <meta name="description" content="接口使用说明 | 小新运维手札">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="你来到了没有知识的荒原 :(">
 <meta name="keywords" content="Linux,运维,k8s,python,shell">
@@ -373,9 +373,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-Vue-Devtools" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-接口使用说明" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">Vue Devtools</h1>
+        <h1 class="article-title">接口使用说明</h1>
     
     <div class="article-meta">
         
@@ -383,26 +383,32 @@
         
         <span class="book">
             
-                <a  data-rel="VUE">VUE</a>
+                <a  data-rel="python">python</a>/
+            
+                <a  data-rel="django">django</a>/
+            
+                <a  data-rel="基于接口权限认证">基于接口权限认证</a>
             
         </span>
         
         
         <span class="tag">
             
-            <a class="color4">vue</a>
+            <a class="color2">python</a>
+            
+            <a class="color2">django</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-30 14:02:41'>2019-11-30 13:12</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-17 20:46:31'>2019-12-16 19:46</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:90</span>
+        <span>字数:764</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -421,7 +427,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍"><span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装方法"><span class="toc-text">安装方法</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#用户接口"><span class="toc-text">用户接口</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据字典"><span class="toc-text">数据字典</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#接口使用说明"><span class="toc-text">接口使用说明</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -437,11 +443,230 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><ul>
-<li>Devtools是一个非常方便的VUE调试工具,它允许你在一个更友好的界面中审查和调试 Vue 应用。<h3 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h3></li>
-<li>Devtools是以浏览器的插件形式存在<ul>
-<li>chrome下载位置 <a href="https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd" target="_blank" rel="noopener">https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd</a></li>
-<li>其他浏览器安装方法请浏览官方 <a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">https://github.com/vuejs/vue-devtools#vue-devtools</a></li>
+        <h1 id="用户接口"><a href="#用户接口" class="headerlink" title="用户接口"></a>用户接口</h1><h2 id="数据字典"><a href="#数据字典" class="headerlink" title="数据字典"></a>数据字典</h2><ul>
+<li>ksuser(用户表)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">COLUMN_NAME</th>
+<th align="center">COLUMN_TYPE</th>
+<th align="right">IS_NULLABLE</th>
+<th align="center">COLUMN_COMMENT</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">id</td>
+<td align="center">int(11)</td>
+<td align="right">NO</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">password</td>
+<td align="center">varchar(128)</td>
+<td align="right">NO</td>
+<td align="center">密码</td>
+</tr>
+<tr>
+<td align="center">last_login</td>
+<td align="center">datetime(6)</td>
+<td align="right">YES</td>
+<td align="center">最后登录时间</td>
+</tr>
+<tr>
+<td align="center">is_superuser</td>
+<td align="center">tinyint(1)</td>
+<td align="right">NO</td>
+<td align="center">是否超级用户</td>
+</tr>
+<tr>
+<td align="center">username</td>
+<td align="center">varchar(150)</td>
+<td align="right">NO</td>
+<td align="center">账号名称</td>
+</tr>
+<tr>
+<td align="center">first_name</td>
+<td align="center">varchar(30)</td>
+<td align="right">NO</td>
+<td align="center">名</td>
+</tr>
+<tr>
+<td align="center">last_name</td>
+<td align="center">varchar(150)</td>
+<td align="right">NO</td>
+<td align="center">姓</td>
+</tr>
+<tr>
+<td align="center">email</td>
+<td align="center">varchar(254)</td>
+<td align="right">NO</td>
+<td align="center">邮箱</td>
+</tr>
+<tr>
+<td align="center">is_staff</td>
+<td align="center">tinyint(1)</td>
+<td align="right">NO</td>
+<td align="center">是否员工</td>
+</tr>
+<tr>
+<td align="center">is_active</td>
+<td align="center">tinyint(1)</td>
+<td align="right">NO</td>
+<td align="center">是否活跃</td>
+</tr>
+<tr>
+<td align="center">date_joined</td>
+<td align="center">datetime(6)</td>
+<td align="right">NO</td>
+<td align="center">创建时间</td>
+</tr>
+<tr>
+<td align="center">gender</td>
+<td align="center">varchar(6)</td>
+<td align="right">NO</td>
+<td align="center">性别</td>
+</tr>
+<tr>
+<td align="center">phone</td>
+<td align="center">varchar(11)</td>
+<td align="right">YES</td>
+<td align="center">电话</td>
+</tr>
+<tr>
+<td align="center">dingding</td>
+<td align="center">varchar(32)</td>
+<td align="right">YES</td>
+<td align="center">钉钉账号</td>
+</tr>
+</tbody></table>
+<ul>
+<li>group(用户组)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">COLUMN_NAME</th>
+<th align="center">COLUMN_TYPE</th>
+<th align="right">IS_NULLABLE</th>
+<th align="center">COLUMN_COMMENT</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">id</td>
+<td align="center">int(11)</td>
+<td align="right">NO</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">name</td>
+<td align="center">varchar(150)</td>
+<td align="right">NO</td>
+<td align="center">组名称</td>
+</tr>
+</tbody></table>
+<ul>
+<li>backendapi(后端接口)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">COLUMN_NAME</th>
+<th align="center">COLUMN_TYPE</th>
+<th align="right">IS_NULLABLE</th>
+<th align="center">COLUMN_COMMENT</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">id</td>
+<td align="center">int(11)</td>
+<td align="right">NO</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">name</td>
+<td align="center">varchar(50)</td>
+<td align="right">YES</td>
+<td align="center">接口名称</td>
+</tr>
+<tr>
+<td align="center">pattern</td>
+<td align="center">varchar(100)</td>
+<td align="right">NO</td>
+<td align="center">接口正则</td>
+</tr>
+<tr>
+<td align="center">app_name</td>
+<td align="center">varchar(30)</td>
+<td align="right">YES</td>
+<td align="center">app名称</td>
+</tr>
+<tr>
+<td align="center">comment</td>
+<td align="center">varchar(100)</td>
+<td align="right">YES</td>
+<td align="center">备注</td>
+</tr>
+</tbody></table>
+<ul>
+<li>permission</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">COLUMN_NAME</th>
+<th align="center">COLUMN_TYPE</th>
+<th align="right">IS_NULLABLE</th>
+<th align="center">COLUMN_COMMENT</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">id</td>
+<td align="center">int(11)</td>
+<td align="right">NO</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">method</td>
+<td align="center">varchar(10)</td>
+<td align="right">NO</td>
+<td align="center">http请求方法</td>
+</tr>
+<tr>
+<td align="center">api_id</td>
+<td align="center">int(11)</td>
+<td align="right">NO</td>
+<td align="center">后端接口id</td>
+</tr>
+</tbody></table>
+<h2 id="接口使用说明"><a href="#接口使用说明" class="headerlink" title="接口使用说明"></a>接口使用说明</h2><p>一级路径： /account/</p>
+<ul>
+<li>/login/<ul>
+<li>http请求方法: POST<ul>
+<li>请求体<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"> <span class="attr">"username"</span>:<span class="string">"admin"</span>,</span><br><span class="line"> <span class="attr">"password"</span>:<span class="string">"12345678"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>正确登录<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"code"</span>: <span class="number">200</span>,</span><br><span class="line">  <span class="attr">"data"</span>: &#123;&#125;,</span><br><span class="line">  <span class="attr">"msg"</span>: <span class="string">"Login Successful."</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>登录错误<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"code"</span>: <span class="number">401</span>,</span><br><span class="line">  <span class="attr">"data"</span>: &#123;&#125;,</span><br><span class="line">  <span class="attr">"msg"</span>: <span class="string">"account or password error."</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>/logout/<ul>
+<li>http请求方法: GET</li>
+<li>请求体 无</li>
+<li>返回体<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"code"</span>: <span class="number">204</span>,</span><br><span class="line">  <span class="attr">"data"</span>: <span class="literal">null</span>,</span><br><span class="line">  <span class="attr">"msg"</span>: <span class="string">"请求成功"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>/user/<ul>
+<li>http请求方法: ALL</li>
+<li>示例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">* GET </span><br><span class="line">  获取指定用户信息 /user/PK/</span><br><span class="line">  获取所有用户信息 /user/</span><br><span class="line"></span><br><span class="line">* POST</span><br><span class="line">  创建用户 /user/</span><br><span class="line">  批量操作 是</span><br><span class="line">  请求体</span><br><span class="line">  &#123;</span><br><span class="line">    &quot;groups&quot;: [1],</span><br><span class="line">    &quot;permissions&quot;: [],</span><br><span class="line">    &quot;is_superuser&quot;: true,</span><br><span class="line">    &quot;username&quot;: &quot;admin200&quot;,</span><br><span class="line">    &quot;first_name&quot;: &quot;&quot;,</span><br><span class="line">    &quot;last_name&quot;: &quot;&quot;,</span><br><span class="line">    &quot;email&quot;: &quot;admin20@ksjgs.com&quot;,</span><br><span class="line">    &quot;is_staff&quot;: false,</span><br><span class="line">    &quot;gender&quot;: &quot;male&quot;,</span><br><span class="line">    &quot;phone&quot;: null,</span><br><span class="line">    &quot;dingding&quot;: null,</span><br><span class="line">    &quot;password&quot;:&quot;123456789&quot;</span><br><span class="line">  &#125; </span><br><span class="line">  正常返回</span><br><span class="line">  &#123;</span><br><span class="line">      &quot;code&quot;: 201,</span><br><span class="line">      &quot;data&quot;: &#123;</span><br><span class="line">          &quot;id&quot;: 33,</span><br><span class="line">          &quot;last_login&quot;: null,</span><br><span class="line">          &quot;is_superuser&quot;: true,</span><br><span class="line">          &quot;username&quot;: &quot;admin200&quot;,</span><br><span class="line">          &quot;first_name&quot;: &quot;&quot;,</span><br><span class="line">          &quot;last_name&quot;: &quot;&quot;,</span><br><span class="line">          &quot;email&quot;: &quot;admin20@ksjgs.com&quot;,</span><br><span class="line">          &quot;is_staff&quot;: false,</span><br><span class="line">          &quot;is_active&quot;: true,</span><br><span class="line">          &quot;date_joined&quot;: &quot;2019-12-17T20:03:38.685837&quot;,</span><br><span class="line">          &quot;gender&quot;: &quot;male&quot;,</span><br><span class="line">          &quot;phone&quot;: null,</span><br><span class="line">          &quot;dingding&quot;: null,</span><br><span class="line">          &quot;user_permissions&quot;: [],</span><br><span class="line">          &quot;permissions&quot;: [],</span><br><span class="line">          &quot;groups&quot;: [</span><br><span class="line">              1</span><br><span class="line">          ]</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;msg&quot;: &quot;请求成功&quot;</span><br><span class="line">  &#125;</span><br><span class="line">  请求异常返回</span><br><span class="line">  &#123;</span><br><span class="line">      &quot;code&quot;: 400,</span><br><span class="line">      &quot;data&quot;: &#123;</span><br><span class="line">          &quot;username&quot;: [</span><br><span class="line">              &quot;A user with that username already exists.&quot;</span><br><span class="line">          ]</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;msg&quot;: &quot;请求异常&quot;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">* UPDATE</span><br><span class="line">  全局更新用户信息 /user/PK/</span><br><span class="line">  请求体</span><br><span class="line">  &#123;</span><br><span class="line"> &quot;groups&quot;: [1],</span><br><span class="line"> &quot;permissions&quot;: [],</span><br><span class="line"> &quot;is_superuser&quot;: true,</span><br><span class="line"> &quot;username&quot;: &quot;admin20&quot;,</span><br><span class="line"> &quot;first_name&quot;: &quot;&quot;,</span><br><span class="line"> &quot;last_name&quot;: &quot;&quot;,</span><br><span class="line"> &quot;email&quot;: &quot;admin20@ksjgs.com&quot;,</span><br><span class="line"> &quot;is_staff&quot;: false,</span><br><span class="line"> &quot;gender&quot;: &quot;male&quot;,</span><br><span class="line"> &quot;phone&quot;: &quot;138xxxx&quot;,</span><br><span class="line"> &quot;dingding&quot;: &quot;123456789&quot;,</span><br><span class="line"> &quot;password&quot;: &quot;12345678&quot;</span><br><span class="line">  &#125;</span><br><span class="line">  请求正常返回体同POST</span><br><span class="line">  请求异常返回体同POST</span><br><span class="line"></span><br><span class="line">* PATCH</span><br><span class="line">  局部更新用户数据 /user/PK/</span><br><span class="line">  请求体可以是UPDATE请求体中的任意属性</span><br><span class="line"></span><br><span class="line">* DELETE</span><br><span class="line">  删除用户 /user/PK/</span><br><span class="line">  批量操作 /usr/?ids=PK1,PK2,PK3</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>/group/<ul>
+<li>http请求方法: ALL</li>
+<li>示例 使用方法同/user/</li>
+<li>其他接口使用说明<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">* 用户组批量添加用户</span><br><span class="line">POST /group/PK/permission/?user_ids=user_id01,user_id02</span><br><span class="line">* 用户组批量添删除用户</span><br><span class="line">DELETE /group/PK/permission/?user_ids=user_id01,user_id02</span><br><span class="line">* 用户组批量添加用权限</span><br><span class="line">POST /group/PK/permission/?perm_ids=permission_id01,permission_id02</span><br><span class="line">* 用户组批量删除权限</span><br><span class="line">DELETE /group/PK/permission/?perm_ids=permission_id01,permission_id02</span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
 </li>
 </ul>
@@ -458,12 +683,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>Vue Devtools</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">90</span></p>
+    <p><span class="copy-title">文章标题:</span>接口使用说明</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">764</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="Aaron">Aaron</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-11-30, 13:12:27</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-30, 14:02:41</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/30/Vue-Devtools/" title="Vue Devtools">http://blog.linuxerbulo.com/2019/11/30/Vue-Devtools/</a>
+    <p><span class="copy-title">发布时间:</span>2019-12-16, 19:46:48</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-17, 20:46:31</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/16/%E6%8E%A5%E5%8F%A3%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/" title="接口使用说明">http://blog.linuxerbulo.com/2019/12/16/%E6%8E%A5%E5%8F%A3%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>

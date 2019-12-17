@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Vue Devtools | 小新运维手札</title>
+  <title>Vue-生命周期 | 小新运维手札</title>
   <meta name="keywords" content=" vue ">
-  <meta name="description" content="Vue Devtools | 小新运维手札">
+  <meta name="description" content="Vue-生命周期 | 小新运维手札">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="你来到了没有知识的荒原 :(">
 <meta name="keywords" content="Linux,运维,k8s,python,shell">
@@ -373,9 +373,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-Vue-Devtools" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Vue-生命周期" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">Vue Devtools</h1>
+        <h1 class="article-title">Vue-生命周期</h1>
     
     <div class="article-meta">
         
@@ -397,12 +397,12 @@
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-30 14:02:41'>2019-11-30 13:12</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-15 23:42:50'>2019-12-14 15:59</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:90</span>
+        <span>字数:452</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -421,7 +421,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍"><span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装方法"><span class="toc-text">安装方法</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#生命周期钩子函数"><span class="toc-text">生命周期钩子函数</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -437,12 +437,68 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><ul>
-<li>Devtools是一个非常方便的VUE调试工具,它允许你在一个更友好的界面中审查和调试 Vue 应用。<h3 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h3></li>
-<li>Devtools是以浏览器的插件形式存在<ul>
-<li>chrome下载位置 <a href="https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd" target="_blank" rel="noopener">https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd</a></li>
-<li>其他浏览器安装方法请浏览官方 <a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">https://github.com/vuejs/vue-devtools#vue-devtools</a></li>
+        <h3 id="生命周期钩子函数"><a href="#生命周期钩子函数" class="headerlink" title="生命周期钩子函数"></a>生命周期钩子函数</h3><p><img src="https://cn.vuejs.org/images/lifecycle.png" alt=""></p>
+<ul>
+<li>生命周期分为三大阶段: 初始化、更新显示、销毁实例<ul>
+<li>初始化阶段的钩子函数<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">beforeCreate()实例创建之前: 数据和模板均为获取到</span><br><span class="line">create()实例创建后：最早可访问的数据，但模板并未获取到</span><br><span class="line">beforeMount()数据挂载前， 模板已经获取到但数据为挂载到模板中</span><br><span class="line">mounted()数据挂载后，数据已经挂载在模板中</span><br></pre></td></tr></table></figure></li>
+<li>更新阶段的钩子<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">beforUpdate() 模板更新前： data改变后，更新模板数据前的调用</span><br><span class="line">update() 模板更新后： 数据已经挂到模板中</span><br></pre></td></tr></table></figure></li>
+<li>销毁阶段的钩子<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">beforDestroy()实例销毁之爱情呢</span><br><span class="line">destroyed()实例销毁后</span><br></pre></td></tr></table></figure></li>
 </ul>
+</li>
+<li>实例<pre><code class="html"><span class="meta">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span>
+<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>
+  <span class="tag">&lt;<span class="name">h1</span>&gt;</span><span class="comment">{{msg}}</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"node_modules/vue/dist/vue.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;<span class="name">script</span>&gt;</span>
+<span class="actionscript">  <span class="keyword">const</span> vm = <span class="keyword">new</span> Vue({</span>
+<span class="actionscript">      <span class="comment">// el: '#app',</span></span>
+      data: {
+<span class="actionscript">          msg: <span class="string">'XiaoxIN'</span></span>
+      },
+      beforeCreate(){
+<span class="actionscript">          <span class="comment">// Vue实例创建前被调用，数据和模板均为获取到</span></span>
+<span class="javascript">          <span class="built_in">console</span>.log(<span class="string">'beforeCreate()'</span>, <span class="keyword">this</span>.$el, <span class="keyword">this</span>.$data)</span>
+      },
+      created(){
+<span class="actionscript">          <span class="comment">// Vue实例化之后最早可以获取到data数据的钩子， 但模板未获取到</span></span>
+<span class="actionscript">          <span class="comment">// 建议ajax请求</span></span>
+<span class="javascript">          <span class="built_in">console</span>.log(<span class="string">'created()'</span>, <span class="keyword">this</span>.$el, <span class="keyword">this</span>.$data)</span>
+      },
+      beforeMount(){
+<span class="actionscript">          <span class="comment">// 数据挂载之前，获取到模板，但是数据还未挂载到模板上</span></span>
+<span class="javascript">          <span class="built_in">console</span>.log(<span class="string">'beforeMount()'</span>, <span class="keyword">this</span>.$el, <span class="keyword">this</span>.$data)</span>
+      },
+      mounted() {
+<span class="actionscript">          <span class="comment">// 数据已经挂载在模板中</span></span>
+<span class="javascript">          <span class="built_in">console</span>.log(<span class="string">'Mount()'</span>, <span class="keyword">this</span>.$el, <span class="keyword">this</span>.$data)</span>
+      },
+      beforeUpdate(){
+<span class="actionscript">          <span class="comment">// 当data数据在更新之后，去更新模板中的数据前调用</span></span>
+<span class="javascript">          <span class="built_in">console</span>.log(<span class="string">'beforeUpdate()'</span>, <span class="keyword">this</span>.$el.innerHTML, <span class="keyword">this</span>.$data)</span>
+      },
+      updated(){
+<span class="actionscript">          <span class="comment">//</span></span>
+<span class="javascript">          <span class="built_in">console</span>.log(<span class="string">'updated()'</span>, <span class="keyword">this</span>.$el.innerHTML, <span class="keyword">this</span>.$data)</span>
+      },
+      beforeDestroy(){
+<span class="javascript">          <span class="built_in">console</span>.log(<span class="string">'beforeDestroy()'</span>)</span>
+      },
+      destroyed(){
+<span class="javascript">          <span class="built_in">console</span>.log(<span class="string">'destroyed()'</span>)</span>
+      }
+<span class="actionscript">  }).$mount(<span class="string">'#app'</span>) <span class="comment">// 如果实例中没有el元素可以使用$mount()手动指定dom元素</span></span>
+<span class="actionscript">  <span class="comment">// vm.$destroy()</span></span>
+<span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">html</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">html</span>&gt;</span></code></pre>
 </li>
 </ul>
 
@@ -458,12 +514,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>Vue Devtools</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">90</span></p>
+    <p><span class="copy-title">文章标题:</span>Vue-生命周期</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">452</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="Aaron">Aaron</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-11-30, 13:12:27</p>
-    <p><span class="copy-title">最后更新:</span>2019-11-30, 14:02:41</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/11/30/Vue-Devtools/" title="Vue Devtools">http://blog.linuxerbulo.com/2019/11/30/Vue-Devtools/</a>
+    <p><span class="copy-title">发布时间:</span>2019-12-14, 15:59:02</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-15, 23:42:50</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/14/Vue-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" title="Vue-生命周期">http://blog.linuxerbulo.com/2019/12/14/Vue-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>

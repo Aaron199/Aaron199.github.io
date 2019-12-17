@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Vue-组件间通信 | 小新运维手札</title>
+  <meta name="keywords" content=" vue ">
+  <meta name="description" content="Vue-组件间通信 | 小新运维手札">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="你来到了没有知识的荒原 :(">
+<meta name="keywords" content="Linux,运维,k8s,python,shell">
+<meta property="og:type" content="website">
+<meta property="og:title" content="404">
+<meta property="og:url" content="http:&#x2F;&#x2F;blog.linuxerbulo.com&#x2F;404.html">
+<meta property="og:site_name" content="小新运维手札">
+<meta property="og:description" content="你来到了没有知识的荒原 :(">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:updated_time" content="2019-11-20T15:21:47.110Z">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>Aaron</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/Aaron199" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:wanganying007@163.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=524556636&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(18)</small></div></li>
+    
+        
+            
+            <li><div data-rel="VUE">VUE<small>(15)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="python"><i class="fold iconfont icon-right"></i>python<small>(3)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="30-seconds-of-python">30-seconds-of-python<small>(2)</small></div>
+                            
+                        </li>
+                            
+                        <li><div data-rel="django"><i class="fold iconfont icon-right"></i>django<small>(1)</small></div>
+                            
+                                <ul class="sub hide">
+                                    
+                                    <li><div data-rel="基于接口权限认证">基于接口权限认证<small>(1)</small></div>
+                                    </li>
+                                    
+                                </ul>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="18">
+<input type="hidden" id="yelog_site_word_count" value="11.9k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color4">npm</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">vue</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">MVVC</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">python</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">django</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="VUE "
+           href="/2019/11/25/NPM%E5%88%9D%E5%A7%8B%E5%8C%96/"
+           data-tag="npm"
+           data-author="" >
+            <span class="post-title" title="NPM初始化">NPM初始化</span>
+            <span class="post-date" title="2019-11-25 22:45:24">2019/11/25</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/11/25/NPM%E5%AE%89%E8%A3%85%E6%A8%A1%E5%9D%97/"
+           data-tag="npm"
+           data-author="" >
+            <span class="post-title" title="NPM安装模块">NPM安装模块</span>
+            <span class="post-date" title="2019-11-25 23:32:37">2019/11/25</span>
+        </a>
+        
+        <a  class="python 30-seconds-of-python "
+           href="/2019/11/26/30-seconds-of-python%E4%B9%8Blist/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="30-seconds-of-python之list">30-seconds-of-python之list</span>
+            <span class="post-date" title="2019-11-26 21:50:40">2019/11/26</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/11/30/Vue-Devtools/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="Vue Devtools">Vue Devtools</span>
+            <span class="post-date" title="2019-11-30 13:12:27">2019/11/30</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/11/30/MVVM%E6%A8%A1%E5%9E%8B/"
+           data-tag="MVVC"
+           data-author="" >
+            <span class="post-title" title="MVVM模型">MVVM模型</span>
+            <span class="post-date" title="2019-11-30 12:47:46">2019/11/30</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/11/30/Vue-%E5%AE%89%E8%A3%85/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Vue 安装">Vue 安装</span>
+            <span class="post-date" title="2019-11-30 11:44:12">2019/11/30</span>
+        </a>
+        
+        <a  class="python 30-seconds-of-python "
+           href="/2019/11/26/30-seconds-of-python%E7%AE%80%E8%BF%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="30-seconds-of-python简述">30-seconds-of-python简述</span>
+            <span class="post-date" title="2019-11-26 21:21:05">2019/11/26</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/12/01/%E5%8A%A8%E6%80%81%E4%BF%AE%E6%94%B9class%E4%B8%8Estyle/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="动态修改class与style">动态修改class与style</span>
+            <span class="post-date" title="2019-12-01 12:02:58">2019/12/01</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/12/03/vue%E8%BF%87%E5%BA%A6%E5%8A%A8%E7%94%BB%E5%92%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="vue过度动画和自定义指令">vue过度动画和自定义指令</span>
+            <span class="post-date" title="2019-12-03 22:56:22">2019/12/03</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/11/30/Vue-js-%E4%BB%8B%E7%BB%8D/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="Vue.js 介绍">Vue.js 介绍</span>
+            <span class="post-date" title="2019-11-30 11:08:00">2019/11/30</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/12/04/Vue-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="Vue-自定义指令">Vue-自定义指令</span>
+            <span class="post-date" title="2019-12-04 23:30:25">2019/12/04</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/11/30/Vue-%E6%8C%87%E4%BB%A4/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Vue 指令">Vue 指令</span>
+            <span class="post-date" title="2019-11-30 14:03:39">2019/11/30</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/12/08/Vue-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8F%92%E4%BB%B6/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="Vue-自定义插件">Vue-自定义插件</span>
+            <span class="post-date" title="2019-12-08 22:47:27">2019/12/08</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/12/08/Vue-%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="Vue-组件化开发">Vue-组件化开发</span>
+            <span class="post-date" title="2019-12-08 23:42:05">2019/12/08</span>
+        </a>
+        
+        <a  class="python django 基于接口权限认证 "
+           href="/2019/12/16/%E6%8E%A5%E5%8F%A3%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/"
+           data-tag="python,django"
+           data-author="" >
+            <span class="post-title" title="接口使用说明">接口使用说明</span>
+            <span class="post-date" title="2019-12-16 19:46:48">2019/12/16</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/12/08/Vue-%E8%BF%87%E6%BB%A4%E5%99%A8%E5%92%8C%E6%8F%92%E4%BB%B6/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="Vue-过滤器和插件">Vue-过滤器和插件</span>
+            <span class="post-date" title="2019-12-08 15:37:58">2019/12/08</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/12/14/Vue-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="Vue-生命周期">Vue-生命周期</span>
+            <span class="post-date" title="2019-12-14 15:59:02">2019/12/14</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/12/14/Vue-%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="Vue-组件间通信">Vue-组件间通信</span>
+            <span class="post-date" title="2019-12-14 10:09:23">2019/12/14</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-Vue-组件间通信" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Vue-组件间通信</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="VUE">VUE</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color4">vue</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-12-14 15:20:41'>2019-12-14 10:09</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:2.6k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#组件间通信"><span class="toc-text">组件间通信</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#组件间通信规则"><span class="toc-text">组件间通信规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#声明组件对象中定义-props"><span class="toc-text">声明组件对象中定义 props</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#引用组件时动态赋值"><span class="toc-text">引用组件时动态赋值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实例一"><span class="toc-text">实例一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#传递数据注意"><span class="toc-text">传递数据注意</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实例二"><span class="toc-text">实例二</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义传递数据-emit"><span class="toc-text">自定义传递数据 $emit</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#实例"><span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#slot-插槽"><span class="toc-text">slot 插槽</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#实例-1"><span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#非父子组件之间进行通信-PubSubJs"><span class="toc-text">非父子组件之间进行通信 PubSubJs</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#订阅消息-绑定监听事件"><span class="toc-text">订阅消息(绑定监听事件)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#发布消息-触发时间"><span class="toc-text">发布消息(触发时间)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#实例-2"><span class="toc-text">实例</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="组件间通信"><a href="#组件间通信" class="headerlink" title="组件间通信"></a>组件间通信</h4><ol>
+<li>props 父组件向子组件传递数据</li>
+<li>$emit 自定义组件 ,子组件数据传递父组件</li>
+<li>slot 插槽分发内容</li>
+</ol>
+<h4 id="组件间通信规则"><a href="#组件间通信规则" class="headerlink" title="组件间通信规则"></a>组件间通信规则</h4><ol>
+<li>不要再子组件中修改父组件传递的数据</li>
+<li>数据初始化时，应当看初始化的数据是否用于多个组件中, 如果需要被用于多个组件中, 则初始化在父组件中; 如果在一个组件中使用，则出现在该组件中</li>
+<li>数据初始化在那个组件中, 更新就应当在那个组件中</li>
+</ol>
+<h4 id="声明组件对象中定义-props"><a href="#声明组件对象中定义-props" class="headerlink" title="声明组件对象中定义 props"></a>声明组件对象中定义 props</h4><ol>
+<li>在声明组件对象中使用props<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const MyComponet &#123;</span><br><span class="line">    template: &apos;&lt;div&gt;&lt;/div&gt;&apos;,</span><br><span class="line">    props: 此处有三种方式，</span><br><span class="line">    components: &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>方式一: 指定传递属性名, 数组形式</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">props: [&apos;id&apos;,&apos;name&apos;,&apos;slary&apos;,&apos;author&apos;]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>方式二：指定传递数据对象和数据类型，对象像是</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">props: &#123;</span><br><span class="line">    id: Number,</span><br><span class="line">    name: String,</span><br><span class="line">    salary: Number,</span><br><span class="line">    isPublish: Boolean,</span><br><span class="line">    commentIds: Array,</span><br><span class="line">    author: Objects,</span><br><span class="line">    getEmp: Function</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="引用组件时动态赋值"><a href="#引用组件时动态赋值" class="headerlink" title="引用组件时动态赋值"></a>引用组件时动态赋值</h4>在引用组件时通过v-bind动态赋值<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">my-componet</span> <span class="attr">v-bind:id</span>=<span class="string">"2"</span> <span class="attr">:name</span>=<span class="string">"Xiaoxin"</span> <span class="attr">:slary</span>=<span class="string">"9999"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">my-componet</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="实例一"><a href="#实例一" class="headerlink" title="实例一"></a>实例一</h4>AppHome.js<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> template = <span class="string">`        </span></span><br><span class="line"><span class="string">        &lt;div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"&gt;</span></span><br><span class="line"><span class="string">			</span></span><br><span class="line"><span class="string">			&lt;!--右边上半区域--&gt;</span></span><br><span class="line"><span class="string">          &lt;h1 class="page-header"&gt;Dashboard&lt;/h1&gt;</span></span><br><span class="line"><span class="string">            &lt;!--通过属性绑定的形式传递数据--&gt;</span></span><br><span class="line"><span class="string">            &lt;dashboard :hobbies="hobbies"&gt;&lt;/dashboard&gt;</span></span><br><span class="line"><span class="string">			&lt;!--右边下半区域--&gt;</span></span><br><span class="line"><span class="string">          &lt;h2 class="sub-header"&gt;Section title&lt;/h2&gt;</span></span><br><span class="line"><span class="string">            &lt;home-list :empList="empList"&gt;&lt;/home-list&gt;</span></span><br><span class="line"><span class="string">          </span></span><br><span class="line"><span class="string">        &lt;/div&gt;`</span></span><br><span class="line">    <span class="built_in">window</span>.AppHome = &#123;</span><br><span class="line">        template,</span><br><span class="line">        data()&#123;</span><br><span class="line">          <span class="keyword">return</span> &#123;</span><br><span class="line">              hobbies:[<span class="string">'eatting'</span>,<span class="string">'sleep'</span>,<span class="string">'gamming'</span>,<span class="string">'coding'</span>],</span><br><span class="line">              empList: [</span><br><span class="line">                  &#123; <span class="attr">id</span>:<span class="number">1</span>, <span class="attr">name</span>:<span class="string">'xiaoxin1'</span>, <span class="attr">slary</span>:<span class="number">4000</span> &#125;,</span><br><span class="line">                  &#123; <span class="attr">id</span>:<span class="number">2</span>, <span class="attr">name</span>:<span class="string">'xiaoxin'</span>, <span class="attr">slary</span>:<span class="number">4000</span> &#125;,</span><br><span class="line">                  &#123; <span class="attr">id</span>:<span class="number">3</span>, <span class="attr">name</span>:<span class="string">'xiaoxin2'</span>, <span class="attr">slary</span>:<span class="number">4000</span> &#125;,</span><br><span class="line">                  &#123; <span class="attr">id</span>:<span class="number">4</span>, <span class="attr">name</span>:<span class="string">'xiaoxin3'</span>, <span class="attr">slary</span>:<span class="number">4000</span> &#125;,</span><br><span class="line">              ]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        components: &#123;</span><br><span class="line">            Dashboard,</span><br><span class="line">            homeList</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+dashboard.sh<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">window</span>.Dashboard = &#123;</span><br><span class="line">        template: <span class="string">` &lt;div class="row placeholders"&gt;</span></span><br><span class="line"><span class="string">            &lt;div v-for="hobby in hobbies" class="col-xs-6 col-sm-3 placeholder"&gt;</span></span><br><span class="line"><span class="string">              &lt;img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail"&gt;</span></span><br><span class="line"><span class="string">              &lt;h4&gt;&#123;&#123; hobby &#125;&#125;&lt;/h4&gt;</span></span><br><span class="line"><span class="string">              &lt;span class="text-muted"&gt;&lt;/span&gt;</span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">          &lt;/div&gt;`</span>,</span><br><span class="line">        <span class="comment">// 声明当前子组件接收父组件的属性列表</span></span><br><span class="line">        props: [<span class="string">'hobbies'</span>]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<h4 id="传递数据注意"><a href="#传递数据注意" class="headerlink" title="传递数据注意"></a>传递数据注意</h4></li>
+<li>props只适用于父组件向子组件传递</li>
+<li>所有标签属性都会成为组件对象的属性, 模板页面可以直接饮用</li>
+<li>如果需要向非子组件传递(孙代之后), 必须逐层传递</li>
+<li>兄弟组件之间不能直接传递，必须通过父组件传递</li>
+</ol>
+<h4 id="实例二"><a href="#实例二" class="headerlink" title="实例二"></a>实例二</h4><p>子组件删除数据,根据传递数据使用原则，原数据定义在哪里就在那个组件中进行操作，所以这里删除的函数定义在了AppHome.js父组件中<br>AppHome.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> template = <span class="string">`        </span></span><br><span class="line"><span class="string">        &lt;div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"&gt;</span></span><br><span class="line"><span class="string">			</span></span><br><span class="line"><span class="string">			&lt;!--右边上半区域--&gt;</span></span><br><span class="line"><span class="string">          &lt;h1 class="page-header"&gt;Dashboard&lt;/h1&gt;</span></span><br><span class="line"><span class="string">            &lt;!--通过属性绑定的形式传递数据--&gt;</span></span><br><span class="line"><span class="string">            &lt;dashboard :hobbies="hobbies"&gt;&lt;/dashboard&gt;</span></span><br><span class="line"><span class="string">			&lt;!--右边下半区域--&gt;</span></span><br><span class="line"><span class="string">          &lt;h2 class="sub-header"&gt;Section title&lt;/h2&gt;</span></span><br><span class="line"><span class="string">            &lt;home-list :empList="empList" :delItem="delItem"&gt;&lt;/home-list&gt;</span></span><br><span class="line"><span class="string">          </span></span><br><span class="line"><span class="string">        &lt;/div&gt;`</span></span><br><span class="line">    <span class="built_in">window</span>.AppHome = &#123;</span><br><span class="line">        template,</span><br><span class="line">        data()&#123;</span><br><span class="line">          <span class="keyword">return</span> &#123;</span><br><span class="line">              hobbies:[<span class="string">'eatting'</span>,<span class="string">'sleep'</span>,<span class="string">'gamming'</span>,<span class="string">'coding'</span>],</span><br><span class="line">              empList: [</span><br><span class="line">                  &#123; <span class="attr">id</span>:<span class="number">1</span>, <span class="attr">name</span>:<span class="string">'xiaoxin1'</span>, <span class="attr">slary</span>:<span class="number">4000</span> &#125;,</span><br><span class="line">                  &#123; <span class="attr">id</span>:<span class="number">2</span>, <span class="attr">name</span>:<span class="string">'xiaoxin'</span>, <span class="attr">slary</span>:<span class="number">4000</span> &#125;,</span><br><span class="line">                  &#123; <span class="attr">id</span>:<span class="number">3</span>, <span class="attr">name</span>:<span class="string">'xiaoxin2'</span>, <span class="attr">slary</span>:<span class="number">4000</span> &#125;,</span><br><span class="line">                  &#123; <span class="attr">id</span>:<span class="number">4</span>, <span class="attr">name</span>:<span class="string">'xiaoxin3'</span>, <span class="attr">slary</span>:<span class="number">4000</span> &#125;,</span><br><span class="line">              ]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        components: &#123;</span><br><span class="line">            Dashboard,</span><br><span class="line">            homeList</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;<span class="comment">// 删除元素函数</span></span><br><span class="line">            delItem(inx) &#123;</span><br><span class="line">                <span class="keyword">this</span>.empList.splice(inx, <span class="number">1</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p>homeList.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> template = <span class="string">`&lt;div class="table-responsive"&gt;</span></span><br><span class="line"><span class="string">            &lt;table class="table table-striped"&gt;</span></span><br><span class="line"><span class="string">              &lt;thead&gt;</span></span><br><span class="line"><span class="string">                &lt;tr&gt;</span></span><br><span class="line"><span class="string">                  &lt;th&gt;ID&lt;/th&gt;</span></span><br><span class="line"><span class="string">                  &lt;th&gt;Name&lt;/th&gt;</span></span><br><span class="line"><span class="string">                  &lt;th&gt;Salary&lt;/th&gt;</span></span><br><span class="line"><span class="string">                  &lt;th&gt;Action&lt;/th&gt;</span></span><br><span class="line"><span class="string">                &lt;/tr&gt;</span></span><br><span class="line"><span class="string">              &lt;/thead&gt;</span></span><br><span class="line"><span class="string">                &lt;emp-list v-for="emp,inx in empList" :emp="emp" :inx="inx" :delItem="delItem" :key="emp.id"&gt;&lt;/emp-list&gt;</span></span><br><span class="line"><span class="string">              &lt;tbody&gt;</span></span><br><span class="line"><span class="string">                </span></span><br><span class="line"><span class="string">              &lt;/tbody&gt;</span></span><br><span class="line"><span class="string">            &lt;/table&gt;</span></span><br><span class="line"><span class="string">          &lt;/div&gt;`</span></span><br><span class="line">    <span class="built_in">window</span>.homeList = &#123;</span><br><span class="line">        template,</span><br><span class="line">        components: &#123;</span><br><span class="line">            empList</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// 这里只声明delItem函数</span></span><br><span class="line">        props: [<span class="string">'empList'</span>, <span class="string">'delItem'</span>]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p>empList.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> template = <span class="string">`&lt;tr&gt;</span></span><br><span class="line"><span class="string">                  &lt;td&gt;&#123;&#123;emp.id&#125;&#125;&lt;/td&gt;</span></span><br><span class="line"><span class="string">                  &lt;td&gt;&#123;&#123;emp.name&#125;&#125;&lt;/td&gt;</span></span><br><span class="line"><span class="string">                  &lt;td&gt;&#123;&#123;emp.slary&#125;&#125;&lt;/td&gt;</span></span><br><span class="line"><span class="string">                  &lt;td&gt;</span></span><br><span class="line"><span class="string">                    &lt;a href="#" @click="delEmp"&gt;删除&lt;/a&gt;</span></span><br><span class="line"><span class="string">&lt;/td&gt;</span></span><br><span class="line"><span class="string">                &lt;/tr&gt;`</span></span><br><span class="line">    <span class="built_in">window</span>.empList = &#123;</span><br><span class="line">        template,</span><br><span class="line">        props: &#123;</span><br><span class="line">            emp: &#123; <span class="comment">// 指定属性名称/数据类型/是否必须</span></span><br><span class="line">                type: <span class="built_in">Object</span>,</span><br><span class="line">                request: <span class="literal">true</span></span><br><span class="line">            &#125;,</span><br><span class="line">            inx: <span class="built_in">Number</span>,</span><br><span class="line">            delItem: <span class="built_in">Function</span></span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">            <span class="comment">// 这里需要包裹一层才能使用传递过来的函数</span></span><br><span class="line">            delEmp()&#123;</span><br><span class="line">                <span class="comment">// 这里的inx是传递过来的属性，必须使用this.inx</span></span><br><span class="line">                <span class="keyword">this</span>.delItem(<span class="keyword">this</span>.inx)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+
+<h4 id="自定义传递数据-emit"><a href="#自定义传递数据-emit" class="headerlink" title="自定义传递数据 $emit"></a>自定义传递数据 $emit</h4><p>$emit主要用于子组件传递数据到父组件</p>
+<h5 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h5><p>AppHome.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> template = <span class="string">`        </span></span><br><span class="line"><span class="string">        &lt;div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"&gt;</span></span><br><span class="line"><span class="string">			</span></span><br><span class="line"><span class="string">			&lt;!--右边上半区域--&gt;</span></span><br><span class="line"><span class="string">          &lt;h1 class="page-header"&gt;Dashboard&lt;/h1&gt;</span></span><br><span class="line"><span class="string">            &lt;!--通过属性绑定的形式传递数据</span></span><br><span class="line"><span class="string">                @自定义监听事件 = 监听函数</span></span><br><span class="line"><span class="string">                在子组件dashboard中触发了del_hobby事件调用delHobby函数</span></span><br><span class="line"><span class="string">            --&gt;</span></span><br><span class="line"><span class="string">            &lt;dashboard :hobbies="hobbies" @del_hobby="delHobby"&gt;&lt;/dashboard&gt;</span></span><br><span class="line"><span class="string">			&lt;!--右边下半区域--&gt;</span></span><br><span class="line"><span class="string">          &lt;h2 class="sub-header"&gt;Section title&lt;/h2&gt;</span></span><br><span class="line"><span class="string">            &lt;home-list :empList="empList" :delItem="delItem"&gt;&lt;/home-list&gt;</span></span><br><span class="line"><span class="string">          </span></span><br><span class="line"><span class="string">        &lt;/div&gt;`</span></span><br><span class="line">    <span class="built_in">window</span>.AppHome = &#123;</span><br><span class="line">        template,</span><br><span class="line">        data()&#123;</span><br><span class="line">          <span class="keyword">return</span> &#123;</span><br><span class="line">              hobbies:[<span class="string">'eatting'</span>,<span class="string">'sleep'</span>,<span class="string">'gamming'</span>,<span class="string">'coding'</span>],</span><br><span class="line">              empList: [</span><br><span class="line">                  &#123; <span class="attr">id</span>:<span class="number">1</span>, <span class="attr">name</span>:<span class="string">'xiaoxin1'</span>, <span class="attr">slary</span>:<span class="number">4000</span> &#125;,</span><br><span class="line">                  &#123; <span class="attr">id</span>:<span class="number">2</span>, <span class="attr">name</span>:<span class="string">'xiaoxin'</span>, <span class="attr">slary</span>:<span class="number">4000</span> &#125;,</span><br><span class="line">                  &#123; <span class="attr">id</span>:<span class="number">3</span>, <span class="attr">name</span>:<span class="string">'xiaoxin2'</span>, <span class="attr">slary</span>:<span class="number">4000</span> &#125;,</span><br><span class="line">                  &#123; <span class="attr">id</span>:<span class="number">4</span>, <span class="attr">name</span>:<span class="string">'xiaoxin3'</span>, <span class="attr">slary</span>:<span class="number">4000</span> &#125;,</span><br><span class="line">              ]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        components: &#123;</span><br><span class="line">            Dashboard,</span><br><span class="line">            homeList</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">            delItem(inx) &#123;</span><br><span class="line">                <span class="keyword">this</span>.empList.splice(inx, <span class="number">1</span>)</span><br><span class="line">            &#125;,</span><br><span class="line">            delHobby(inx) &#123;</span><br><span class="line">                <span class="keyword">this</span>.hobbies.splice(inx, <span class="number">1</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p>dashboard.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">window</span>.Dashboard = &#123;</span><br><span class="line">        template: <span class="string">` &lt;div class="row placeholders"&gt;</span></span><br><span class="line"><span class="string">            &lt;div v-for="hobby,inx in hobbies" class="col-xs-6 col-sm-3 placeholder"&gt;</span></span><br><span class="line"><span class="string">              &lt;img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail"&gt;</span></span><br><span class="line"><span class="string">              &lt;h4&gt;&#123;&#123; hobby &#125;&#125;&lt;/h4&gt;</span></span><br><span class="line"><span class="string">              &lt;a href="#" @click="delHobby(inx)"&gt;del&lt;/a&gt;</span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">          &lt;/div&gt;`</span>,</span><br><span class="line">        <span class="comment">// 声明当前子组件接收父组件的属性列表</span></span><br><span class="line">        props: [<span class="string">'hobbies'</span>,<span class="string">'del_hobby'</span>],</span><br><span class="line">        methods: &#123;</span><br><span class="line">            delHobby(inx)&#123;</span><br><span class="line">                <span class="comment">// 通过emit自定义事向父组件传递数据</span></span><br><span class="line">                <span class="comment">// del_hobby父组件中定义自定义事件</span></span><br><span class="line">                <span class="keyword">this</span>.$emit(<span class="string">'del_hobby'</span>, inx)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意事项</p>
+<ol>
+<li>自定义事件只用于子组件想父组件传递数据</li>
+<li>隔代组件或兄弟组件不适合这种方式</li>
+</ol>
+</blockquote>
+<h4 id="slot-插槽"><a href="#slot-插槽" class="headerlink" title="slot 插槽"></a>slot 插槽</h4><h5 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> template = <span class="string">`	&lt;!--头部导航区域--&gt;</span></span><br><span class="line"><span class="string">	&lt;!--必须要有一个根元素, 有且仅有一个，下面添加div标签--&gt;</span></span><br><span class="line"><span class="string">	&lt;div&gt;</span></span><br><span class="line"><span class="string">       &lt;app-navbar&gt;&lt;/app-navbar&gt;</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	&lt;!--核心区域:分左右两边--&gt;</span></span><br><span class="line"><span class="string">        &lt;div class="container-fluid"&gt;</span></span><br><span class="line"><span class="string">      &lt;div class="row"&gt;</span></span><br><span class="line"><span class="string">		</span></span><br><span class="line"><span class="string">		&lt;!--左边菜单栏区域--&gt;</span></span><br><span class="line"><span class="string">        &lt;app-left&gt;&lt;/app-left&gt;</span></span><br><span class="line"><span class="string">			</span></span><br><span class="line"><span class="string">		&lt;!--右边主页面区域: 分上下两个区域--&gt;</span></span><br><span class="line"><span class="string">          &lt;app-home&gt;</span></span><br><span class="line"><span class="string">            &lt;!--这里定义slot的名称为"dashboard"，当子组件引用这个slot时就会被替换为对应的html标签--&gt;</span></span><br><span class="line"><span class="string">            &lt;h1 slot="dashboard" class="page-header"&gt;&#123;&#123;title&#125;&#125;&lt;/h1&gt;</span></span><br><span class="line"><span class="string">&lt;/app-home&gt;</span></span><br><span class="line"><span class="string">          &lt;/div&gt;</span></span><br><span class="line"><span class="string">          &lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;`</span></span><br><span class="line">    <span class="built_in">window</span>.App = &#123;</span><br><span class="line">        template,</span><br><span class="line">        components: &#123;</span><br><span class="line">            AppNavbar, <span class="comment">//等价于AppNavbar:AppNavbar ,AppNavbar在appNavBarr.js中引入</span></span><br><span class="line">            appLeft,</span><br><span class="line">            AppHome,</span><br><span class="line">        &#125;,</span><br><span class="line">        data()&#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                title: <span class="string">'Dashboard01'</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p>AppHome.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> template = <span class="string">`        </span></span><br><span class="line"><span class="string">        &lt;div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"&gt;</span></span><br><span class="line"><span class="string">			</span></span><br><span class="line"><span class="string">			&lt;!--右边上半区域--&gt;</span></span><br><span class="line"><span class="string">          &lt;!--&lt;h1 class="page-header"&gt;Dashboard&lt;/h1&gt;--&gt;</span></span><br><span class="line"><span class="string">          &lt;!--这里引用父组件中定义的slot为"dashboard"的元素--&gt;</span></span><br><span class="line"><span class="string">          &lt;slot name="dashboard"&gt;&lt;/slot&gt;</span></span><br><span class="line"><span class="string">            &lt;!--通过属性绑定的形式传递数据</span></span><br><span class="line"><span class="string">                @自定义监听事件 = 监听函数</span></span><br><span class="line"><span class="string">                在子组件dashboard中触发了del_hobby事件调用delHobby函数</span></span><br><span class="line"><span class="string">            --&gt;</span></span><br><span class="line"><span class="string">            &lt;dashboard :hobbies="hobbies" @del_hobby="delHobby"&gt;&lt;/dashboard&gt;</span></span><br><span class="line"><span class="string">			&lt;!--右边下半区域--&gt;</span></span><br><span class="line"><span class="string">          &lt;h2 class="sub-header"&gt;Section title&lt;/h2&gt;</span></span><br><span class="line"><span class="string">            &lt;home-list :empList="empList" :delItem="delItem"&gt;&lt;/home-list&gt;</span></span><br><span class="line"><span class="string">          </span></span><br><span class="line"><span class="string">        &lt;/div&gt;`</span></span><br><span class="line">    <span class="built_in">window</span>.AppHome = &#123;</span><br><span class="line">        template,</span><br><span class="line">        data()&#123;</span><br><span class="line">          <span class="keyword">return</span> &#123;</span><br><span class="line">              hobbies:[<span class="string">'eatting'</span>,<span class="string">'sleep'</span>,<span class="string">'gamming'</span>,<span class="string">'coding'</span>],</span><br><span class="line">              empList: [</span><br><span class="line">                  &#123; <span class="attr">id</span>:<span class="number">1</span>, <span class="attr">name</span>:<span class="string">'xiaoxin1'</span>, <span class="attr">slary</span>:<span class="number">4000</span> &#125;,</span><br><span class="line">                  &#123; <span class="attr">id</span>:<span class="number">2</span>, <span class="attr">name</span>:<span class="string">'xiaoxin'</span>, <span class="attr">slary</span>:<span class="number">4000</span> &#125;,</span><br><span class="line">                  &#123; <span class="attr">id</span>:<span class="number">3</span>, <span class="attr">name</span>:<span class="string">'xiaoxin2'</span>, <span class="attr">slary</span>:<span class="number">4000</span> &#125;,</span><br><span class="line">                  &#123; <span class="attr">id</span>:<span class="number">4</span>, <span class="attr">name</span>:<span class="string">'xiaoxin3'</span>, <span class="attr">slary</span>:<span class="number">4000</span> &#125;,</span><br><span class="line">              ]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        components: &#123;</span><br><span class="line">            Dashboard,</span><br><span class="line">            homeList</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">            delItem(inx) &#123;</span><br><span class="line">                <span class="keyword">this</span>.empList.splice(inx, <span class="number">1</span>)</span><br><span class="line">            &#125;,</span><br><span class="line">            delHobby(inx) &#123;</span><br><span class="line">                <span class="keyword">this</span>.hobbies.splice(inx, <span class="number">1</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意事项</p>
+<ol>
+<li>只能用于父组件想子组件传递数据</li>
+<li>传递的插槽标签需要定义在父组件中</li>
+</ol>
+</blockquote>
+<h4 id="非父子组件之间进行通信-PubSubJs"><a href="#非父子组件之间进行通信-PubSubJs" class="headerlink" title="非父子组件之间进行通信 PubSubJs"></a>非父子组件之间进行通信 PubSubJs</h4><p>理解： 订阅消息 ==== 绑定事件监听, 发布消息 ==== 触发事件<br>注意： 需要先执行订阅事件subscribe, 然后才能publish时间<br>安装： npm install pubsub-js</p>
+<h5 id="订阅消息-绑定监听事件"><a href="#订阅消息-绑定监听事件" class="headerlink" title="订阅消息(绑定监听事件)"></a>订阅消息(绑定监听事件)</h5><p>先在create钩子函数中订阅消息</p>
+<blockquote>
+<p>注意这里要使用箭头函数”=&gt;”，这样this就是代表父函数对象Vue，否则代表pubsubJs</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PubSub.subscribe(<span class="string">'消息名称'</span>,(event, data) =&gt; &#123;</span><br><span class="line"><span class="comment">// 处理回调函数  </span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="发布消息-触发时间"><a href="#发布消息-触发时间" class="headerlink" title="发布消息(触发时间)"></a>发布消息(触发时间)</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PubSub.publish(<span class="string">'消息名称'</span>,data)</span><br></pre></td></tr></table></figure>
+<h5 id="实例-2"><a href="#实例-2" class="headerlink" title="实例"></a>实例</h5><p>AppLeft.js(订阅方)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">window</span>.appLeft = &#123;</span><br><span class="line">        template: <span class="string">`&lt;div class="col-sm-3 col-md-2 sidebar"&gt;</span></span><br><span class="line"><span class="string">          &lt;ul class="nav nav-sidebar"&gt;</span></span><br><span class="line"><span class="string">            &lt;!--&lt;li class="active"&gt;&lt;a href="#"&gt;Overview &lt;span class="sr-only"&gt;(current)&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;--&gt;</span></span><br><span class="line"><span class="string">            &lt;li @click="currentActive(item)" :class="&#123;active: current === item&#125;" v-for="item in top"&gt;</span></span><br><span class="line"><span class="string">            &lt;a :href="item.url"&gt;&#123;&#123;item.name&#125;&#125;&lt;span&gt;(&#123;&#123;delNum&#125;&#125;)&lt;/span&gt;&lt;/a&gt;</span></span><br><span class="line"><span class="string">            &lt;/li&gt;</span></span><br><span class="line"><span class="string">          &lt;/ul&gt;</span></span><br><span class="line"><span class="string">        &lt;/div&gt;`</span>,</span><br><span class="line">        data()&#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                top:[</span><br><span class="line">                    &#123;<span class="attr">name</span>:<span class="string">'Overview'</span>,<span class="attr">url</span>:<span class="string">'#'</span>&#125;,</span><br><span class="line">                    &#123;<span class="attr">name</span>:<span class="string">'Reports'</span>,<span class="attr">url</span>:<span class="string">'#'</span>&#125;,</span><br><span class="line">                    &#123;<span class="attr">name</span>:<span class="string">'Analytics'</span>,<span class="attr">url</span>:<span class="string">'#'</span>&#125;,</span><br><span class="line">                    &#123;<span class="attr">name</span>:<span class="string">'Export'</span>,<span class="attr">url</span>:<span class="string">'#'</span>&#125;,</span><br><span class="line">                ],</span><br><span class="line">                current: top[<span class="number">1</span>],</span><br><span class="line">                delNum:<span class="number">0</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        methods:&#123;</span><br><span class="line">            currentActive(item)&#123;</span><br><span class="line">                <span class="keyword">this</span>.current = item</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        created() &#123;</span><br><span class="line">            PubSub.subscribe(<span class="string">'changeNum'</span>,(event, num) =&gt; &#123; <span class="comment">//这里必须用箭头函数，代表vue实例，否则将代表pubsub</span></span><br><span class="line">                <span class="comment">// 事件回调处理</span></span><br><span class="line">                <span class="comment">// 统计删除总数量</span></span><br><span class="line">                <span class="keyword">this</span>.delNum = <span class="keyword">this</span>.delNum + num</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+<p>AppHome.js(发布方)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">;(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> template = <span class="string">`        </span></span><br><span class="line"><span class="string">        &lt;div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main"&gt;</span></span><br><span class="line"><span class="string">			</span></span><br><span class="line"><span class="string">			&lt;!--右边上半区域--&gt;</span></span><br><span class="line"><span class="string">          &lt;!--&lt;h1 class="page-header"&gt;Dashboard&lt;/h1&gt;--&gt;</span></span><br><span class="line"><span class="string">          &lt;!--这里引用父组件中定义的slot为"dashboard"的元素--&gt;</span></span><br><span class="line"><span class="string">          &lt;slot name="dashboard"&gt;&lt;/slot&gt;</span></span><br><span class="line"><span class="string">            &lt;!--通过属性绑定的形式传递数据</span></span><br><span class="line"><span class="string">                @自定义监听事件 = 监听函数</span></span><br><span class="line"><span class="string">                在子组件dashboard中触发了del_hobby事件调用delHobby函数</span></span><br><span class="line"><span class="string">            --&gt;</span></span><br><span class="line"><span class="string">            &lt;dashboard :hobbies="hobbies" @del_hobby="delHobby"&gt;&lt;/dashboard&gt;</span></span><br><span class="line"><span class="string">			&lt;!--右边下半区域--&gt;</span></span><br><span class="line"><span class="string">          &lt;h2 class="sub-header"&gt;Section title&lt;/h2&gt;</span></span><br><span class="line"><span class="string">            &lt;home-list :empList="empList" :delItem="delItem"&gt;&lt;/home-list&gt;</span></span><br><span class="line"><span class="string">          </span></span><br><span class="line"><span class="string">        &lt;/div&gt;`</span></span><br><span class="line">    <span class="built_in">window</span>.AppHome = &#123;</span><br><span class="line">        template,</span><br><span class="line">        data()&#123;</span><br><span class="line">          <span class="keyword">return</span> &#123;</span><br><span class="line">              hobbies:[<span class="string">'eatting'</span>,<span class="string">'sleep'</span>,<span class="string">'gamming'</span>,<span class="string">'coding'</span>],</span><br><span class="line">              empList: [</span><br><span class="line">                  &#123; <span class="attr">id</span>:<span class="number">1</span>, <span class="attr">name</span>:<span class="string">'xiaoxin1'</span>, <span class="attr">slary</span>:<span class="number">4000</span> &#125;,</span><br><span class="line">                  &#123; <span class="attr">id</span>:<span class="number">2</span>, <span class="attr">name</span>:<span class="string">'xiaoxin'</span>, <span class="attr">slary</span>:<span class="number">4000</span> &#125;,</span><br><span class="line">                  &#123; <span class="attr">id</span>:<span class="number">3</span>, <span class="attr">name</span>:<span class="string">'xiaoxin2'</span>, <span class="attr">slary</span>:<span class="number">4000</span> &#125;,</span><br><span class="line">                  &#123; <span class="attr">id</span>:<span class="number">4</span>, <span class="attr">name</span>:<span class="string">'xiaoxin3'</span>, <span class="attr">slary</span>:<span class="number">4000</span> &#125;,</span><br><span class="line">              ]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        components: &#123;</span><br><span class="line">            Dashboard,</span><br><span class="line">            homeList</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">            delItem(inx) &#123;</span><br><span class="line">                <span class="keyword">this</span>.empList.splice(inx, <span class="number">1</span>)</span><br><span class="line">            &#125;,</span><br><span class="line">            delHobby(inx) &#123;</span><br><span class="line">                <span class="keyword">this</span>.hobbies.splice(inx, <span class="number">1</span>)</span><br><span class="line">                <span class="comment">// 通过订阅的方式记录删除数</span></span><br><span class="line">                PubSub.publish(<span class="string">'changeNum'</span>, <span class="number">1</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>Vue-组件间通信</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">2.6k</span></p>
+    <p><span class="copy-title">本文作者:</span><a  title="Aaron">Aaron</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-12-14, 10:09:23</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-14, 15:20:41</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/14/Vue-%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1/" title="Vue-组件间通信">http://blog.linuxerbulo.com/2019/12/14/Vue-%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2019-2020 Aaron</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#npm','#vue','#MVVC','#python','#django',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
