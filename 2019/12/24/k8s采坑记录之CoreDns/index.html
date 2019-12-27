@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>k8s采坑记录之CoreDns | 小新运维手札</title>
+  <meta name="keywords" content=" k8s ">
+  <meta name="description" content="k8s采坑记录之CoreDns | 小新运维手札">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="本网站用于沟通交流系统运维技术">
+<meta name="keywords" content="Linux,运维,k8s,python,shell">
+<meta property="og:type" content="website">
+<meta property="og:title" content="About me">
+<meta property="og:url" content="http:&#x2F;&#x2F;blog.linuxerbulo.com&#x2F;about&#x2F;me.html">
+<meta property="og:site_name" content="小新运维手札">
+<meta property="og:description" content="本网站用于沟通交流系统运维技术">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:updated_time" content="2019-11-19T12:47:18.000Z">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/avatar.jpg">
+
+<link href="/css/style.css?v=1.0.1" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.0.1" rel="stylesheet">
+
+<link href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="/js/jquery.autocomplete.min.js?v=1.0.1" ></script>
+
+<script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.0.1" ></script>
+
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="false">
+  <input class="theme_blog_path" value="">
+</div>
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/" class="avatar_target">
+    <img class="avatar" src="/img/avatar.jpg" />
+</a>
+<div class="author">
+    <span>Aaron</span>
+</div>
+
+<div class="icon">
+    
+        
+        <a title="github" href="https://github.com/Aaron199" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-github"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="email" href="mailto:wanganying007@163.com" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-email"></use>
+                </svg>
+            
+        </a>
+        
+    
+        
+        <a title="qq" href="http://wpa.qq.com/msgrd?v=3&uin=524556636&site=qq&menu=yes" target="_blank">
+            
+                <svg class="iconfont-svg" aria-hidden="true">
+                    <use xlink:href="#icon-qq"></use>
+                </svg>
+            
+        </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li><div class="all active">全部文章<small>(21)</small></div></li>
+    
+        
+            
+            <li><div data-rel="VUE">VUE<small>(16)</small></div>
+                
+            </li>
+            
+        
+    
+        
+            
+            <li><div data-rel="python"><i class="fold iconfont icon-right"></i>python<small>(3)</small></div>
+                
+                    <ul class="sub hide">
+                        
+                        <li><div data-rel="30-seconds-of-python">30-seconds-of-python<small>(2)</small></div>
+                            
+                        </li>
+                            
+                    </ul>
+                
+            </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+            <li><div data-rel="k8s">k8s<small>(2)</small></div>
+                
+            </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+    
+    
+    
+    
+    </div>
+    <div></div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="21">
+<input type="hidden" id="yelog_site_word_count" value="16.2k">
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        友情链接
+        <i class="back-title-list"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+            <li><a target="_blank" href="http://yelog.org/">叶落阁</a></li>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <form onkeydown="if(event.keyCode==13){return false;}">
+        <input class="search" type="text" placeholder="Search..." autocomplete="off"id="local-search-input" >
+        <i class="cross"></i>
+        <span>
+            <label for="tagswitch">Tags:</label>
+            <input id="tagswitch" type="checkbox" style="display: none" />
+            <i id="tagsWitchIcon"></i>
+        </span>
+    </form>
+    <div class="tags-list">
+    
+    <li class="article-tag-list-item">
+        <a class="color4">npm</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color5">MVVC</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">vue</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">python</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">django</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color4">k8s</a>
+    </li>
+    
+    <li class="article-tag-list-item">
+        <a class="color2">harbor</a>
+    </li>
+    
+    <div class="clearfix"></div>
+</div>
+
+    
+    <nav id="title-list-nav">
+        
+        <a  class="VUE "
+           href="/2019/11/25/NPM%E5%AE%89%E8%A3%85%E6%A8%A1%E5%9D%97/"
+           data-tag="npm"
+           data-author="" >
+            <span class="post-title" title="NPM安装模块">NPM安装模块</span>
+            <span class="post-date" title="2019-11-25 23:32:37">2019/11/25</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/11/25/NPM%E5%88%9D%E5%A7%8B%E5%8C%96/"
+           data-tag="npm"
+           data-author="" >
+            <span class="post-title" title="NPM初始化">NPM初始化</span>
+            <span class="post-date" title="2019-11-25 22:45:24">2019/11/25</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/11/30/MVVM%E6%A8%A1%E5%9E%8B/"
+           data-tag="MVVC"
+           data-author="" >
+            <span class="post-title" title="MVVM模型">MVVM模型</span>
+            <span class="post-date" title="2019-11-30 12:47:46">2019/11/30</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/11/30/Vue-Devtools/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="Vue Devtools">Vue Devtools</span>
+            <span class="post-date" title="2019-11-30 13:12:27">2019/11/30</span>
+        </a>
+        
+        <a  class="python 30-seconds-of-python "
+           href="/2019/11/26/30-seconds-of-python%E7%AE%80%E8%BF%B0/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="30-seconds-of-python简述">30-seconds-of-python简述</span>
+            <span class="post-date" title="2019-11-26 21:21:05">2019/11/26</span>
+        </a>
+        
+        <a  class="python 30-seconds-of-python "
+           href="/2019/11/26/30-seconds-of-python%E4%B9%8Blist/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="30-seconds-of-python之list">30-seconds-of-python之list</span>
+            <span class="post-date" title="2019-11-26 21:50:40">2019/11/26</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/11/30/Vue-js-%E4%BB%8B%E7%BB%8D/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="Vue.js 介绍">Vue.js 介绍</span>
+            <span class="post-date" title="2019-11-30 11:08:00">2019/11/30</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/12/03/vue%E8%BF%87%E5%BA%A6%E5%8A%A8%E7%94%BB%E5%92%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="vue过度动画和自定义指令">vue过度动画和自定义指令</span>
+            <span class="post-date" title="2019-12-03 22:56:22">2019/12/03</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/12/01/%E5%8A%A8%E6%80%81%E4%BF%AE%E6%94%B9class%E4%B8%8Estyle/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="动态修改class与style">动态修改class与style</span>
+            <span class="post-date" title="2019-12-01 12:02:58">2019/12/01</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/12/04/Vue-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="Vue-自定义指令">Vue-自定义指令</span>
+            <span class="post-date" title="2019-12-04 23:30:25">2019/12/04</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/11/30/Vue-%E6%8C%87%E4%BB%A4/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Vue 指令">Vue 指令</span>
+            <span class="post-date" title="2019-11-30 14:03:39">2019/11/30</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/12/08/Vue-%E8%BF%87%E6%BB%A4%E5%99%A8%E5%92%8C%E6%8F%92%E4%BB%B6/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="Vue-过滤器和插件">Vue-过滤器和插件</span>
+            <span class="post-date" title="2019-12-08 15:37:58">2019/12/08</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/11/30/Vue-%E5%AE%89%E8%A3%85/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Vue 安装">Vue 安装</span>
+            <span class="post-date" title="2019-11-30 11:44:12">2019/11/30</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/12/08/Vue-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8F%92%E4%BB%B6/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="Vue-自定义插件">Vue-自定义插件</span>
+            <span class="post-date" title="2019-12-08 22:47:27">2019/12/08</span>
+        </a>
+        
+        <a  class="python "
+           href="/2019/12/16/%E6%8E%A5%E5%8F%A3%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/"
+           data-tag="python,django"
+           data-author="" >
+            <span class="post-title" title="接口使用说明">接口使用说明</span>
+            <span class="post-date" title="2019-12-16 19:46:48">2019/12/16</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/12/14/Vue-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="Vue-生命周期">Vue-生命周期</span>
+            <span class="post-date" title="2019-12-14 15:59:02">2019/12/14</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/12/08/Vue-%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="Vue-组件化开发">Vue-组件化开发</span>
+            <span class="post-date" title="2019-12-08 23:42:05">2019/12/08</span>
+        </a>
+        
+        <a  class="k8s "
+           href="/2019/12/24/k8s%E9%87%87%E5%9D%91%E8%AE%B0%E5%BD%95%E4%B9%8BCoreDns/"
+           data-tag="k8s"
+           data-author="" >
+            <span class="post-title" title="k8s采坑记录之CoreDns">k8s采坑记录之CoreDns</span>
+            <span class="post-date" title="2019-12-24 20:20:17">2019/12/24</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/12/14/Vue-%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="Vue-组件间通信">Vue-组件间通信</span>
+            <span class="post-date" title="2019-12-14 10:09:23">2019/12/14</span>
+        </a>
+        
+        <a  class="VUE "
+           href="/2019/12/26/vue%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84ajax%E5%BA%93/"
+           data-tag="vue"
+           data-author="" >
+            <span class="post-title" title="vue中常用的ajax库">vue中常用的ajax库</span>
+            <span class="post-date" title="2019-12-26 23:42:01">2019/12/26</span>
+        </a>
+        
+        <a  class="k8s "
+           href="/2019/12/25/harbor-push-%E6%8A%A5%E9%94%99/"
+           data-tag="harbor"
+           data-author="" >
+            <span class="post-title" title="harbor push 报错">harbor push 报错</span>
+            <span class="post-date" title="2019-12-25 16:55:24">2019/12/25</span>
+        </a>
+        
+    </nav>
+</div>
+    </div>
+    <div class="hide-list">
+        <div class="semicircle">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div class="post">
+    <div class="pjax">
+        <article id="post-k8s采坑记录之CoreDns" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">k8s采坑记录之CoreDns</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            
+                <a  data-rel="k8s">k8s</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color4">k8s</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2019-12-26 14:42:16'>2019-12-24 20:20</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        <span>字数:3k</span>
+        
+        
+        <span id="busuanzi_container_page_pv">
+            阅读:<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#现象"><span class="toc-text">现象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#排查过程"><span class="toc-text">排查过程</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h3><p>最近在部署开发环境的时候,发现POD的READY状态持续了大概7分钟一直都是0/1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NAME                                       READY   STATUS    RESTARTS   AGE   IP            NODE                                                NOMINATED NODE   READINESS GATES</span><br><span class="line">ks-sso-server-deployment-896964cb6-9xdnb   0/1     Running   0          6m36s   10.244.1.30   ecs.ali-bj-vpc.other.172.25.116.185.vpc-dev-k8s02   &lt;none&gt;           &lt;none&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="排查过程"><a href="#排查过程" class="headerlink" title="排查过程"></a>排查过程</h3><p>通过describe查看健康检测接口”connection refused” 应该是pod的服务没有完全起来，readiness才没有检测通过</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe pod/ks-sso-server-deployment-896964cb6-9xdnb</span><br><span class="line"></span><br><span class="line">Events:</span><br><span class="line">  Type     Reason     Age               From                                                        Message</span><br><span class="line">  ----     ------     ----              ----                                                        -------</span><br><span class="line">  Normal   Scheduled  &lt;unknown&gt;         default-scheduler                                           Successfully assigned default/ks-sso-server-deployment-896964cb6-9xdnb to ecs.ali-bj-vpc.other.172.25.116.185.vpc-dev-k8s02</span><br><span class="line">  Normal   Pulling    78s               kubelet, ecs.ali-bj-vpc.other.172.25.116.185.vpc-dev-k8s02  Pulling image &quot;busybox&quot;</span><br><span class="line">  Normal   Pulled     69s               kubelet, ecs.ali-bj-vpc.other.172.25.116.185.vpc-dev-k8s02  Successfully pulled image &quot;busybox&quot;</span><br><span class="line">  Normal   Created    69s               kubelet, ecs.ali-bj-vpc.other.172.25.116.185.vpc-dev-k8s02  Created container proj-init</span><br><span class="line">  Normal   Started    69s               kubelet, ecs.ali-bj-vpc.other.172.25.116.185.vpc-dev-k8s02  Started container proj-init</span><br><span class="line">  Normal   Pulled     68s               kubelet, ecs.ali-bj-vpc.other.172.25.116.185.vpc-dev-k8s02  Container image &quot;harbor.x.xxx.com/library/ks-sso-server:1.6.0.0-SNAPSHOT&quot; already present on machine</span><br><span class="line">  Normal   Created    68s               kubelet, ecs.ali-bj-vpc.other.172.25.116.185.vpc-dev-k8s02  Created container ks-sso-server</span><br><span class="line">  Normal   Started    68s               kubelet, ecs.ali-bj-vpc.other.172.25.116.185.vpc-dev-k8s02  Started container ks-sso-server</span><br><span class="line">  Warning  Unhealthy  3s (x8 over 38s)  kubelet, ecs.ali-bj-vpc.other.172.25.116.185.vpc-dev-k8s02  Readiness probe failed: Get http://10.244.1.30:9999/actuator/health: dial tcp 10.244.1.30:9999: connect: connection refused</span><br></pre></td></tr></table></figure>
+<p>根据历史经验判断应该是业务服务在启动过程中一直在等待连接数据库，尝试在k8s node节点上连接数据库可以正常访问，在pod中尝试ping外网域名解析失败</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2$ ping -c 1 www.baidu.com</span><br><span class="line">ping: www.baidu.com: Name or service not known</span><br></pre></td></tr></table></figure>
+<p>查找dns相关信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"># pod内执行</span><br><span class="line">bash-4.2$ cat /etc/resolv.conf</span><br><span class="line">nameserver 10.96.0.10</span><br><span class="line">search default.svc.cluster.local svc.cluster.local cluster.local</span><br><span class="line">options ndots:5</span><br><span class="line"></span><br><span class="line"># node上执行</span><br><span class="line">root@pts/1 $ kubectl get svc -n kube-system -o wide | grep 10.96.0.10</span><br><span class="line">kube-dns              ClusterIP   10.96.0.10      &lt;none&gt;        53/UDP,53/TCP,9153/TCP   33d   k8s-app=kube-dns</span><br><span class="line"></span><br><span class="line"># 查找对应的POD</span><br><span class="line">root@pts/1 $ kubectl get pods -n kube-system -o wide -l k8s-app=kube-dns</span><br><span class="line">NAME                       READY   STATUS    RESTARTS   AGE   IP            NODE                                                NOMINATED NODE   READINESS GATES</span><br><span class="line">coredns-5f8cbd7dcb-7d4tq   1/1     Running   0          26h   10.244.1.28   ecs.ali-bj-vpc.other.172.25.116.185.vpc-dev-k8s02   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">coredns-5f8cbd7dcb-sq4kf   1/1     Running   0          33d   10.244.2.2    ecs.ali-bj-vpc.other.172.25.116.184.vpc-dev-k8s03   &lt;none&gt;           &lt;none&gt;</span><br><span class="line"></span><br><span class="line"># 分别使用对应的ip解析域名</span><br><span class="line">root@pts/1 $ dig @10.244.1.28 www.baidu.com</span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.11.4-P2-RedHat-9.11.4-9.P2.el7 &lt;&lt;&gt;&gt; @10.244.1.28 www.baidu.com</span><br><span class="line">; (1 server found)</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 42941</span><br><span class="line">;; flags: qr rd ra; QUERY: 1, ANSWER: 3, AUTHORITY: 0, ADDITIONAL: 1</span><br><span class="line"></span><br><span class="line">;; OPT PSEUDOSECTION:</span><br><span class="line">; EDNS: version: 0, flags:; udp: 4096</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;www.baidu.com.			IN	A</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">www.baidu.com.		30	IN	CNAME	www.a.shifen.com.</span><br><span class="line">www.a.shifen.com.	30	IN	A	220.181.38.149</span><br><span class="line">www.a.shifen.com.	30	IN	A	220.181.38.150</span><br><span class="line"></span><br><span class="line">;; Query time: 2 msec</span><br><span class="line">;; SERVER: 10.244.1.28#53(10.244.1.28)</span><br><span class="line">;; WHEN: Tue Dec 24 20:48:52 CST 2019</span><br><span class="line">;; MSG SIZE  rcvd: 149</span><br><span class="line"></span><br><span class="line">ecs.ali-bj-vpc.other.172.25.116.186.vpc-dev-k8s01 [~] 2019-12-24 20:48:52</span><br><span class="line">root@pts/1 $ dig @10.244.2.2 www.baidu.com</span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.11.4-P2-RedHat-9.11.4-9.P2.el7 &lt;&lt;&gt;&gt; @10.244.2.2 www.baidu.com</span><br><span class="line">; (1 server found)</span><br><span class="line">;; global options: +cmd</span><br><span class="line">;; Got answer:</span><br><span class="line">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 3294</span><br><span class="line">;; flags: qr rd ra; QUERY: 1, ANSWER: 3, AUTHORITY: 0, ADDITIONAL: 1</span><br><span class="line"></span><br><span class="line">;; OPT PSEUDOSECTION:</span><br><span class="line">; EDNS: version: 0, flags:; udp: 4096</span><br><span class="line">;; QUESTION SECTION:</span><br><span class="line">;www.baidu.com.			IN	A</span><br><span class="line"></span><br><span class="line">;; ANSWER SECTION:</span><br><span class="line">www.baidu.com.		22	IN	CNAME	www.a.shifen.com.</span><br><span class="line">www.a.shifen.com.	22	IN	A	220.181.38.150</span><br><span class="line">www.a.shifen.com.	22	IN	A	220.181.38.149</span><br><span class="line"></span><br><span class="line">;; Query time: 2 msec</span><br><span class="line">;; SERVER: 10.244.2.2#53(10.244.2.2)</span><br><span class="line">;; WHEN: Tue Dec 24 20:49:15 CST 2019</span><br><span class="line">;; MSG SIZE  rcvd: 149</span><br></pre></td></tr></table></figure>
+<p>直接通过CoreDns解析都没有问题，访问service是通过iptable的转发规则实现的，难道iptable的转发规则有问题？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">大概的转发规则是这样：</span><br><span class="line">                                                                |--&gt;KUBE-SEP-MNEVT5LK3OWCRPXW---|       |---&gt;10.244.1.28(50%)</span><br><span class="line">请求--&gt;OUTPUT--&gt;KUBE-SERVICES--&gt;KUBE-SVC-TCOU7JCQXEZGVUNU--&gt;RANDOM                                ---&gt;路由</span><br><span class="line">                                                                |--&gt;KUBE-SEP-TCIZBYBD3WWXNWF5---|       |---&gt;10.244.2.2(50%)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"># 这里只展示相关的规则</span><br><span class="line">root@pts/0 $ iptables -t nat -vnL</span><br><span class="line">Chain PREROUTING (policy ACCEPT 17 packets, 2178 bytes)</span><br><span class="line"> pkts bytes target     prot opt in     out     source               destination</span><br><span class="line"> 393K   59M KUBE-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes service portals */</span><br><span class="line"> 138K   40M DOCKER     all  --  *      *       0.0.0.0/0            0.0.0.0/0            ADDRTYPE match dst-type LOCAL</span><br><span class="line"></span><br><span class="line">Chain INPUT (policy ACCEPT 8 packets, 1243 bytes)</span><br><span class="line"> pkts bytes target     prot opt in     out     source               destination</span><br><span class="line"></span><br><span class="line">Chain OUTPUT (policy ACCEPT 16 packets, 2436 bytes)</span><br><span class="line"> pkts bytes target     prot opt in     out     source               destination</span><br><span class="line">1138K   81M KUBE-SERVICES  all  --  *      *       0.0.0.0/0            0.0.0.0/0            /* kubernetes service portals */</span><br><span class="line">    0     0 DOCKER     all  --  *      *       0.0.0.0/0           !127.0.0.0/8          ADDRTYPE match dst-type LOCAL</span><br><span class="line">    </span><br><span class="line"> Chain KUBE-SERVICES (2 references)</span><br><span class="line"> pkts bytes target     prot opt in     out     source               destination   </span><br><span class="line">    0     0 KUBE-MARK-MASQ  udp  --  *      *      !10.244.0.0/16        10.96.0.10           /* kube-system/kube-dns:dns cluster IP */ udp dpt:53</span><br><span class="line">    0     0 KUBE-SVC-TCOU7JCQXEZGVUNU  udp  --  *      *       0.0.0.0/0            10.96.0.10           /* kube-system/kube-dns:dns cluster IP */ udp dpt:53</span><br><span class="line">    0     0 KUBE-MARK-MASQ  tcp  --  *      *      !10.244.0.0/16        10.96.0.10           /* kube-system/kube-dns:dns-tcp cluster IP */ tcp dpt:53</span><br><span class="line">    0     0 KUBE-SVC-ERIFXISQEP7F7OF4  tcp  --  *      *       0.0.0.0/0            10.96.0.10           /* kube-system/kube-dns:dns-tcp cluster IP */ tcp dpt:53</span><br><span class="line">    </span><br><span class="line">Chain KUBE-SVC-TCOU7JCQXEZGVUNU (1 references)</span><br><span class="line"> pkts bytes target     prot opt in     out     source               destination</span><br><span class="line">    0     0 KUBE-SEP-MNEVT5LK3OWCRPXW  all  --  *      *       0.0.0.0/0            0.0.0.0/0            statistic mode random probability 0.50000000000</span><br><span class="line">    0     0 KUBE-SEP-TCIZBYBD3WWXNWF5  all  --  *      *       0.0.0.0/0            0.0.0.0/0</span><br><span class="line">    </span><br><span class="line"> Chain KUBE-SEP-MNEVT5LK3OWCRPXW (1 references)</span><br><span class="line"> pkts bytes target     prot opt in     out     source               destination</span><br><span class="line">    0     0 KUBE-MARK-MASQ  all  --  *      *       10.244.1.28          0.0.0.0/0</span><br><span class="line">    0     0 DNAT       udp  --  *      *       0.0.0.0/0            0.0.0.0/0            udp to:10.244.1.28:53</span><br><span class="line"></span><br><span class="line">Chain KUBE-SEP-TCIZBYBD3WWXNWF5 (1 references)</span><br><span class="line"> pkts bytes target     prot opt in     out     source               destination</span><br><span class="line">    0     0 KUBE-MARK-MASQ  all  --  *      *       10.244.2.2           0.0.0.0/0</span><br><span class="line">    0     0 DNAT       udp  --  *      *       0.0.0.0/0            0.0.0.0/0            udp to:10.244.2.2:53</span><br></pre></td></tr></table></figure>
+<p>上面的规则也是没有问题的，郁闷了，看来只能祭出抓包神器tcpdump分析了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"># pod上执行</span><br><span class="line">bash-4.2$ ping -c 1 www.baidu.com</span><br><span class="line">ping: www.baidu.com: Name or service not known</span><br><span class="line"></span><br><span class="line"># node上执行</span><br><span class="line">tcpdump -i cni0  -p udp port 53  and host 10.244.2.55 -vv -a</span><br><span class="line">21:30:57.993070 IP (tos 0x0, ttl 64, id 14287, offset 0, flags [DF], proto UDP (17), length 85)</span><br><span class="line">    10.244.2.55.51209 &gt; 10.96.0.10.domain: [bad udp cksum 0x17e7 -&gt; 0x89b4!] 606+ A? www.baidu.com.default.svc.cluster.local. (57)</span><br><span class="line">21:30:57.993102 IP (tos 0x0, ttl 63, id 14287, offset 0, flags [DF], proto UDP (17), length 85)</span><br><span class="line">    10.244.2.55.51209 &gt; 10.244.2.2.domain: [bad udp cksum 0x1a73 -&gt; 0x8728!] 606+ A? www.baidu.com.default.svc.cluster.local. (57)</span><br><span class="line">######</span><br><span class="line">    这里停顿了5s    </span><br><span class="line">######</span><br><span class="line">21:31:02.998159 IP (tos 0x0, ttl 64, id 18413, offset 0, flags [DF], proto UDP (17), length 85)</span><br><span class="line">    10.244.2.55.51209 &gt; 10.96.0.10.domain: [bad udp cksum 0x17e7 -&gt; 0x89b4!] 606+ A? www.baidu.com.default.svc.cluster.local. (57)</span><br><span class="line">21:31:02.998189 IP (tos 0x0, ttl 63, id 18413, offset 0, flags [DF], proto UDP (17), length 85)</span><br><span class="line">    10.244.2.55.51209 &gt; 10.244.2.2.domain: [bad udp cksum 0x1a73 -&gt; 0x8728!] 606+ A? www.baidu.com.default.svc.cluster.local. (57)</span><br><span class="line">######</span><br><span class="line">    这里停顿了5s    </span><br><span class="line">######</span><br><span class="line">21:31:08.002208 IP (tos 0x0, ttl 64, id 22190, offset 0, flags [DF], proto UDP (17), length 59)</span><br><span class="line">    10.244.2.55.48623 &gt; 10.96.0.10.domain: [bad udp cksum 0x17cd -&gt; 0xcdb6!] 41007+ A? www.baidu.com. (31)</span><br><span class="line">21:31:08.005166 IP (tos 0x0, ttl 62, id 57825, offset 0, flags [DF], proto UDP (17), length 166)</span><br><span class="line">    10.96.0.10.domain &gt; 10.244.2.55.48623: [udp sum ok] 41007 q: A? www.baidu.com. 3/0/0 www.baidu.com. CNAME www.a.shifen.com., www.a.shifen.com. A 220.181.38.150, www.a.shifen.com. A 220.181.38.149 (138)</span><br><span class="line">21:31:08.012680 IP (tos 0x0, ttl 64, id 22196, offset 0, flags [DF], proto UDP (17), length 73)</span><br><span class="line">    10.244.2.55.35870 &gt; 10.96.0.10.domain: [bad udp cksum 0x17db -&gt; 0xa4f7!] 12939+ PTR? 150.38.181.220.in-addr.arpa. (45)</span><br><span class="line">21:31:08.015056 IP (tos 0x0, ttl 62, id 57832, offset 0, flags [DF], proto UDP (17), length 171)</span><br><span class="line">    10.96.0.10.domain &gt; 10.244.2.55.35870: [udp sum ok] 12939 NXDomain q: PTR? 150.38.181.220.in-addr.arpa. 0/1/0 ns: 38.181.220.IN-ADDR.ARPA. SOA idc-ns1.bjtelecom.net. wang_ye.bjxywh.com. 1201938454 10800 3600 604800 38400 (143)</span><br><span class="line">    </span><br><span class="line"># 正常pod里返回的应该是像下面这样    </span><br><span class="line">23:21:04.525768 IP (tos 0x0, ttl 64, id 10315, offset 0, flags [DF], proto UDP (17), length 85)</span><br><span class="line">    10.244.0.2.58318 &gt; 10.96.0.10.domain: [bad udp cksum 0x15b2 -&gt; 0x4c30!] 9810+ A? www.baidu.com.default.svc.cluster.local. (57)</span><br><span class="line">23:21:04.526224 IP (tos 0x0, ttl 62, id 16446, offset 0, flags [DF], proto UDP (17), length 178)</span><br><span class="line">    10.96.0.10.domain &gt; 10.244.0.2.58318: [udp sum ok] 9810 NXDomain*- q: A? www.baidu.com.default.svc.cluster.local. 0/1/0 ns: cluster.local. [30s] SOA ns.dns.cluster.local. hostmaster.cluster.local. 1577200182 7200 1800 86400 30 (150)</span><br><span class="line">23:21:04.526312 IP (tos 0x0, ttl 64, id 10316, offset 0, flags [DF], proto UDP (17), length 77)</span><br><span class="line">    10.244.0.2.52627 &gt; 10.96.0.10.domain: [bad udp cksum 0x15aa -&gt; 0xb683!] 3326+ A? www.baidu.com.svc.cluster.local. (49)</span><br><span class="line">23:21:04.526617 IP (tos 0x0, ttl 62, id 16447, offset 0, flags [DF], proto UDP (17), length 170)</span><br><span class="line">    10.96.0.10.domain &gt; 10.244.0.2.52627: [udp sum ok] 3326 NXDomain*- q: A? www.baidu.com.svc.cluster.local. 0/1/0 ns: cluster.local. [30s] SOA ns.dns.cluster.local. hostmaster.cluster.local. 1577200182 7200 1800 86400 30 (142)</span><br><span class="line">23:21:04.526665 IP (tos 0x0, ttl 64, id 10317, offset 0, flags [DF], proto UDP (17), length 73)</span><br><span class="line">    10.244.0.2.35606 &gt; 10.96.0.10.domain: [bad udp cksum 0x15a6 -&gt; 0xe2fb!] 40161+ A? www.baidu.com.cluster.local. (45)</span><br><span class="line">23:21:04.527091 IP (tos 0x0, ttl 62, id 12183, offset 0, flags [DF], proto UDP (17), length 166)</span><br><span class="line">    10.96.0.10.domain &gt; 10.244.0.2.35606: [udp sum ok] 40161 NXDomain*- q: A? www.baidu.com.cluster.local. 0/1/0 ns: cluster.local. [30s] SOA ns.dns.cluster.local. hostmaster.cluster.local. 1577200182 7200 1800 86400 30 (138)</span><br><span class="line">23:21:04.527127 IP (tos 0x0, ttl 64, id 10318, offset 0, flags [DF], proto UDP (17), length 59)</span><br><span class="line">    10.244.0.2.47739 &gt; 10.96.0.10.domain: [bad udp cksum 0x1598 -&gt; 0x2b05!] 18570+ A? www.baidu.com. (31)</span><br><span class="line">23:21:04.529487 IP (tos 0x0, ttl 62, id 16448, offset 0, flags [DF], proto UDP (17), length 166)</span><br><span class="line">    10.96.0.10.domain &gt; 10.244.0.2.47739: [udp sum ok] 18570 q: A? www.baidu.com. 3/0/0 www.baidu.com. [30s] CNAME www.a.shifen.com., www.a.shifen.com. [30s] A 220.181.38.150, www.a.shifen.com. [30s] A 220.181.38.149 (138)</span><br><span class="line">23:21:04.537253 IP (tos 0x0, ttl 64, id 10325, offset 0, flags [DF], proto UDP (17), length 73)</span><br><span class="line">    10.244.0.2.35284 &gt; 10.96.0.10.domain: [bad udp cksum 0x15a6 -&gt; 0x7998!] 25193+ PTR? 150.38.181.220.in-addr.arpa. (45)</span><br><span class="line">23:21:04.539122 IP (tos 0x0, ttl 62, id 12187, offset 0, flags [DF], proto UDP (17), length 171)</span><br><span class="line">    10.96.0.10.domain &gt; 10.244.0.2.35284: [udp sum ok] 25193 NXDomain q: PTR? 150.38.181.220.in-addr.arpa. 0/1/0 ns: 38.181.220.IN-ADDR.ARPA. [30s] SOA idc-ns1.bjtelecom.net. wang_ye.bjxywh.com. 1201938454 10800 3600 604800 38400 (143)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 如果我按照下面这个方式访问就能很快返回结果</span><br><span class="line">bash-4.2$ ping www.baidu.com.   &lt;--注意这里是&quot;.&quot;结尾，意思就是域名的绝对路径进行dns查询</span><br><span class="line">PING www.a.shifen.com (220.181.38.149) 56(84) bytes of data.</span><br><span class="line">64 bytes from 220.181.38.149 (220.181.38.149): icmp_seq=1 ttl=51 time=6.97 ms</span><br><span class="line">64 bytes from 220.181.38.149 (220.181.38.149): icmp_seq=2 ttl=51 time=6.93 ms</span><br><span class="line">64 bytes from 220.181.38.149 (220.181.38.149): icmp_seq=3 ttl=51 time=7.08 ms</span><br><span class="line">^C</span><br><span class="line">--- www.a.shifen.com ping statistics ---</span><br><span class="line">3 packets transmitted, 3 received, 0% packet loss, time 2003ms</span><br><span class="line">rtt min/avg/max/mdev = 6.930/6.996/7.082/0.093 ms</span><br></pre></td></tr></table></figure>
+<p>综合上面查证问题一共有2个</p>
+<ol>
+<li>网络存在丢包问题，这个问题经过各种查证最后通过重启解决了，可能和最近阿里云最近漏洞修复有关，太坑爹了</li>
+<li>存在无效查询，因为 /etc/resolv.conf里存在默认搜索域”search default.svc.cluster.local svc.cluster.local cluster.local”，所以查询一个域名的时候就把将查询的域名依次添加默认搜索的域名进行查询后，才会以查询你想要查的域名，解决方法如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">在deploy.yml配置的containers里添加下面配置</span><br><span class="line">dnsConfig:</span><br><span class="line">  options:</span><br><span class="line">  - name: ndots</span><br><span class="line">    value: &quot;1&quot;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">ndots指的的是域名中包含&quot;.&quot;的个数，如果少于这个数量k8s则认为这个域名是一个相对路径，就会走search对应的域名。在 Kubernetes 中，默认设置了 ndots 值为5，是因为，Kubernetes 认为，内部域名，最长为5，要保证内部域名的请求，优先走集群内部的DNS，而不是将内部域名的DNS解析请求，有打到外网的机会，Kubernetes 设置 ndots 为5是一个比较合理的行为。</span><br></pre></td></tr></table></figure>
+至此，这个问题算是解决了，丢包那个问题真是坑爹。。。。</li>
+</ol>
+
+      
+       <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
+    </div>
+</article>
+
+
+<p>
+    <a  class="dashang" onclick="dashangToggle()">赏</a>
+</p>
+
+
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>k8s采坑记录之CoreDns</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">3k</span></p>
+    <p><span class="copy-title">本文作者:</span><a  title="Aaron">Aaron</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-12-24, 20:20:17</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-26, 14:42:16</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/24/k8s%E9%87%87%E5%9D%91%E8%AE%B0%E5%BD%95%E4%B9%8BCoreDns/" title="k8s采坑记录之CoreDns">http://blog.linuxerbulo.com/2019/12/24/k8s%E9%87%87%E5%9D%91%E8%AE%B0%E5%BD%95%E4%B9%8BCoreDns/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
+
+
+
+
+
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">©2019-2020 Aaron</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full"><span class="min "></span></button>
+<button class="post-toc-menu"><span class="post-toc-menu-icons"></span></button>
+<div class="post-toc"><span class="post-toc-title">目录</span>
+    <div class="post-toc-content">
+
+    </div>
+</div>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+<div class="acParent"></div>
+
+<div class="hide_box" onclick="dashangToggle()"></div>
+<div class="shang_box">
+    <a class="shang_close"  onclick="dashangToggle()">×</a>
+    <div class="shang_tit">
+        <p>喜欢就点赞,疼爱就打赏</p>
+    </div>
+    <div class="shang_payimg">
+        <div class="pay_img">
+            <img src="/img/alipay.jpg" class="alipay" title="扫码支持">
+            <img src="/img/weixin.jpg" class="weixin" title="扫码支持">
+        </div>
+    </div>
+    <div class="shang_payselect">
+        <span><label><input type="radio" name="pay" checked value="alipay">支付宝</label></span><span><label><input type="radio" name="pay" value="weixin">微信</label></span>
+    </div>
+</div>
+
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.0.1" ></script>
+
+<script src="/js/script.js?v=1.0.1" ></script>
+<script>
+    var img_resize = 'default';
+    /*作者、标签的自动补全*/
+    $(function () {
+        $('.search').AutoComplete({
+            'data': ['#npm','#MVVC','#vue','#python','#django','#k8s','#harbor',],
+            'itemHeight': 20,
+            'width': 418
+        }).AutoComplete('show');
+    })
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $(".post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+        $("input[name=pay]").on("click", function () {
+            if($("input[name=pay]:checked").val()=="weixin"){
+                $(".shang_box .shang_payimg .pay_img").addClass("weixin_img");
+            } else {
+                $(".shang_box .shang_payimg .pay_img").removeClass("weixin_img");
+            }
+        })
+        
+
+        /*高亮代码块行号*/
+        
+        $('pre code').each(function(){
+            var lines = $(this).text().split('\n').length - 1, widther='';
+            if (lines>99) {
+                widther = 'widther'
+            }
+            var $numbering = $('<ul/>').addClass('pre-numbering ' + widther).attr("unselectable","on");
+            $(this).addClass('has-numbering ' + widther)
+                    .parent()
+                    .append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
+            }
+        });
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+    function dashangToggle() {
+        $(".shang_box").fadeToggle();
+        $(".hide_box").fadeToggle();
+    }
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<style>
+    pre{
+        position: relative;
+        margin-bottom: 24px;
+        border-radius: 10px;
+        border: 1px solid #e2dede;
+        background: #FFF;
+        overflow: hidden;
+    }
+    code.has-numbering{
+        margin-left: 30px;
+    }
+    code.has-numbering.widther{
+        margin-left: 35px;
+    }
+    .pre-numbering{
+        margin: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        padding: 0.5em 3px 0.7em 5px;
+        border-right: 1px solid #C3CCD0;
+        text-align: right;
+        color: #AAA;
+        background-color: #fafafa;
+    }
+    .pre-numbering.widther {
+        width: 35px;
+    }
+</style>
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+        .nav .hide-list.fullscreen {
+            left: 492px
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+    .post .pjax article .article-entry>ol, .post .pjax article .article-entry>ul, .post .pjax article>ol, .post .pjax article>ul{
+        border: #e2dede solid 1px;
+        border-radius: 10px;
+        padding: 10px 32px 10px 56px;
+    }
+    .post .pjax article .article-entry li>ol, .post .pjax article .article-entry li>ul,.post .pjax article li>ol, .post .pjax article li>ul{
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .post .pjax article .article-entry>ol>li, .post .pjax article .article-entry>ul>li,.post .pjax article>ol>li, .post .pjax article>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    .post .pjax article .article-entry li>ol>li, .post .pjax article .article-entry li>ul>li,.post .pjax article li>ol>li, .post .pjax article li>ul>li{
+        margin-bottom: auto;
+        margin-left: auto;
+    }
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+    .nav-right:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.3;
+        background: url("https://i.loli.net/2019/07/22/5d3521411f3f169375.png");
+        background-repeat: no-repeat;
+        background-position: 50% 0;
+        -ms-background-size: cover;
+        -o-background-size: cover;
+        -moz-background-size: cover;
+        -webkit-background-size: cover;
+        background-size: cover;
+    }
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

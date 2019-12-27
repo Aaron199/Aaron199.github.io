@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>About me | 小新运维手札</title>
-  <meta name="keywords" content="">
-  <meta name="description" content="About me | 小新运维手札">
+  <title>vue中常用的ajax库 | 小新运维手札</title>
+  <meta name="keywords" content=" vue ">
+  <meta name="description" content="vue中常用的ajax库 | 小新运维手札">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="本网站用于沟通交流系统运维技术">
 <meta name="keywords" content="Linux,运维,k8s,python,shell">
@@ -394,24 +394,36 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+        <article id="post-vue中常用的ajax库" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">About me</h1>
+        <h1 class="article-title">vue中常用的ajax库</h1>
     
     <div class="article-meta">
         
         
         
+        <span class="book">
+            
+                <a  data-rel="VUE">VUE</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a class="color4">vue</a>
+            
+        </span>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-11-19 20:47:18'>2019-11-19 20:47</time>
+        创建时间:<time class="date" title='更新时间: 2019-12-26 23:48:37'>2019-12-26 23:42</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:0</span>
+        <span>字数:174</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -430,7 +442,7 @@
     
     <div class="toc-ref">
     
-        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#vue-resource"><span class="toc-text">vue-resource</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#axios"><span class="toc-text">axios</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#vuew-resource使用"><span class="toc-text">vuew-resource使用</span></a></li></ol></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -446,7 +458,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h3 id="vue-resource"><a href="#vue-resource" class="headerlink" title="vue-resource"></a>vue-resource</h3><ul>
+<li>在vue1.0 使用比较广泛的第三方库<h3 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h3></li>
+<li>在vue2.0+中使用，官方推荐的第三方库</li>
+</ul>
+<h4 id="vuew-resource使用"><a href="#vuew-resource使用" class="headerlink" title="vuew-resource使用"></a>vuew-resource使用</h4><p>参考地址： <a href="https://github.com/pagekit/vue-resource" target="_blank" rel="noopener">https://github.com/pagekit/vue-resource</a><br>实例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">        &#123;&#123;repData&#125;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"node_modules/vue/dist/vue.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"node_modules/vue-resource/dist/vue-resource.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">        <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="actionscript">            el: <span class="string">"#app"</span>,</span></span><br><span class="line">            data: &#123;</span><br><span class="line">                repData: []</span><br><span class="line">            &#125;,</span><br><span class="line">            created()&#123;</span><br><span class="line"><span class="javascript">                <span class="keyword">this</span>.$http.get(<span class="string">'http://127.0.0.1:8000/recorder/project/1/'</span>).then(<span class="function"><span class="params">responce</span>=&gt;</span>&#123;</span></span><br><span class="line"><span class="actionscript">                <span class="comment">//    回调函数需要使用箭头函数&#123;this Vue实例&#125;，不然this代表window</span></span></span><br><span class="line"><span class="actionscript">                <span class="comment">//     console.log(responce.data)</span></span></span><br><span class="line"><span class="actionscript">                    <span class="keyword">this</span>.repData = responce.data</span></span><br><span class="line"></span><br><span class="line">                &#125;,responce=&gt;&#123;</span><br><span class="line"><span class="actionscript">                    <span class="comment">// 异常处理</span></span></span><br><span class="line">                    prompt(responce.statusText)</span><br><span class="line"></span><br><span class="line">                    &#125;)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
     </div>
@@ -458,10 +478,62 @@
 </p>
 
 
+<div class="article_copyright">
+    <p><span class="copy-title">文章标题:</span>vue中常用的ajax库</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">174</span></p>
+    <p><span class="copy-title">本文作者:</span><a  title="Aaron">Aaron</a></p>
+    <p><span class="copy-title">发布时间:</span>2019-12-26, 23:42:01</p>
+    <p><span class="copy-title">最后更新:</span>2019-12-26, 23:48:37</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/26/vue%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84ajax%E5%BA%93/" title="vue中常用的ajax库">http://blog.linuxerbulo.com/2019/12/26/vue%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84ajax%E5%BA%93/</a>
+    <p>
+        <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+    </p>
+</div>
 
 
 
 
+
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<input type="hidden" id="MathJax-js"
+        value="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</input>
     
 
 
