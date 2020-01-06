@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Vue-自定义插件 | 小新运维手札</title>
-  <meta name="keywords" content=" vue ">
-  <meta name="description" content="Vue-自定义插件 | 小新运维手札">
+  <title>Google身份验证器Python实现 | 小新运维手札</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="Google身份验证器Python实现 | 小新运维手札">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="你来到了没有知识的荒原 :(">
 <meta name="keywords" content="Linux,运维,k8s,python,shell">
@@ -402,9 +402,9 @@
 </aside>
 <div class="post">
     <div class="pjax">
-        <article id="post-Vue-自定义插件" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Google身份验证器Python实现" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">Vue-自定义插件</h1>
+        <h1 class="article-title">Google身份验证器Python实现</h1>
     
     <div class="article-meta">
         
@@ -412,26 +412,20 @@
         
         <span class="book">
             
-                <a  data-rel="VUE">VUE</a>
+                <a  data-rel="python">python</a>
             
         </span>
         
         
-        <span class="tag">
-            
-            <a class="color4">vue</a>
-            
-        </span>
+    </div>
+    <div class="article-meta">
+        
+        创建时间:<time class="date" title='更新时间: 2020-01-01 20:57:07'>2020-01-01 17:59</time>
         
     </div>
     <div class="article-meta">
         
-        创建时间:<time class="date" title='更新时间: 2019-12-08 23:32:56'>2019-12-08 22:47</time>
-        
-    </div>
-    <div class="article-meta">
-        
-        <span>字数:251</span>
+        <span>字数:357</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -450,7 +444,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义插件"><span class="toc-text">自定义插件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#插件的作用"><span class="toc-text">插件的作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#演示"><span class="toc-text">演示</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#背景描述"><span class="toc-text">背景描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MAC部署"><span class="toc-text">MAC部署</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -466,17 +460,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="自定义插件"><a href="#自定义插件" class="headerlink" title="自定义插件"></a>自定义插件</h2><h4 id="插件的作用"><a href="#插件的作用" class="headerlink" title="插件的作用"></a>插件的作用</h4><ol>
-<li>插件通常为全局作用,一般添加全局方法/全局指令/全局过滤器</li>
-<li>Vue中使用install方法进行全局添加</li>
-<li>通过全局方法Vue.use()使用插件</li>
+        <h3 id="背景描述"><a href="#背景描述" class="headerlink" title="背景描述"></a>背景描述</h3><p>  司使用jumpserver作为跳板机，最近出于安全需要开启了MFA二次认证，无论网页还是终端都要输入Google身份验证器的验证码才行，每次都要打开手机实在是麻烦的很，下面是用python3实现的客户端</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>mfa_client.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="comment"># @Time    : 2019/12/27 6:24 PM</span></span><br><span class="line"><span class="comment"># @Author  : Aaron</span></span><br><span class="line"><span class="comment"># @Site    : </span></span><br><span class="line"><span class="comment"># @File    : mfa.py</span></span><br><span class="line"><span class="comment"># @Software: PyCharm</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># !/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> signal</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> hmac, base64, struct, hashlib</span><br><span class="line"><span class="keyword">from</span> pathlib <span class="keyword">import</span> Path</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_hotp_token</span><span class="params">(secret, intervals_no)</span>:</span></span><br><span class="line">    key = base64.b32decode(secret, <span class="literal">True</span>)</span><br><span class="line">    msg = struct.pack(<span class="string">"&gt;Q"</span>, intervals_no)</span><br><span class="line">    h = hmac.new(key, msg, hashlib.sha1).digest()</span><br><span class="line">    o = ord(chr(h[<span class="number">19</span>])) &amp; <span class="number">15</span></span><br><span class="line">    h = (struct.unpack(<span class="string">"&gt;I"</span>, h[o:o+<span class="number">4</span>])[<span class="number">0</span>] &amp; <span class="number">0x7fffffff</span>) % <span class="number">1000000</span></span><br><span class="line">    <span class="keyword">return</span> h</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_google_code</span><span class="params">(secret:str)</span>:</span></span><br><span class="line">    googlecode = get_hotp_token(secret.rstrip(), intervals_no=int(time.time())//<span class="number">30</span>)</span><br><span class="line">    <span class="comment"># 用0补齐6位</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'%06d'</span> % googlecode</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">handler</span><span class="params">(signal_received, frame)</span>:</span></span><br><span class="line">    print(<span class="string">'See you!'</span>)</span><br><span class="line">    exit(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    signal.signal(signal.SIGINT,handler)</span><br><span class="line">    file_name = <span class="string">'.googlecode.txt'</span></span><br><span class="line">    key_file_path = Path.joinpath(Path.home(),file_name)</span><br><span class="line">    <span class="keyword">with</span> key_file_path.open() <span class="keyword">as</span> openfile:</span><br><span class="line">        secret = openfile.read().strip()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        print(<span class="string">f'\r剩余时间：<span class="subst">&#123;<span class="number">30</span>-int(time.time())%<span class="number">30</span>&#125;</span>, Code：<span class="subst">&#123;get_google_code(secret)&#125;</span> Ctrl+C to quit...'</span>,end=<span class="string">''</span>)</span><br><span class="line">        time.sleep(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="MAC部署"><a href="#MAC部署" class="headerlink" title="MAC部署"></a>MAC部署</h3><ol>
+<li><p>保存Secret key到~/.googlecode.txt<br>Secret key是在初始化的时候，页面给出的如下图，如果你手机上已经绑定过，除非记得之前的key否则只能重新初始化，python客户端和手机端可以同时使用一个key。<br><img src="/images/mfa.png" alt=""></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -n <span class="string">"EXINNVKZPBHLJPJM"</span> &gt; ~/.googlecode.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>复制mfa_client.py到bin/下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cp mfa_client.py /usr/<span class="built_in">local</span>/bin/mfa_client</span><br><span class="line">chmod +x !$</span><br></pre></td></tr></table></figure></li>
+<li><p>使用方法</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mfa_client</span><br><span class="line">剩余时间：11, Code：307390 Ctrl+C to quit...</span><br></pre></td></tr></table></figure>
+
+</li>
 </ol>
-<h4 id="演示"><a href="#演示" class="headerlink" title="演示"></a>演示</h4><p>plugin.js</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 声明MyPlugin插件对象</span></span><br><span class="line">    <span class="keyword">const</span> MyPlugin = &#123;&#125;</span><br><span class="line">    MyPlugin.install = <span class="function"><span class="keyword">function</span> (<span class="params">Vue, options</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 添加全局方法</span></span><br><span class="line">        Vue.myGlobalMethod  = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            alert(<span class="string">'MyPlusgin插件全局方法'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 添加全局指令</span></span><br><span class="line">        Vue.directive(<span class="string">'my-directive'</span>,&#123;</span><br><span class="line">            inserted:<span class="function"><span class="keyword">function</span> (<span class="params">el, binding</span>) </span>&#123;</span><br><span class="line">                el.innerHTML = <span class="string">"MyPlugin 插件 my-directive:"</span>+binding.value</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="comment">// 添加实例方法</span></span><br><span class="line">        Vue.prototype.$myMethod = <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">            alert(<span class="string">'Vue 实例方法myMethod被调用'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 将组件添加到window中</span></span><br><span class="line">    <span class="built_in">window</span>.MyPlugin = MyPlugin</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
-<p>自定义插件.html</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">v-my-directive</span>=<span class="string">"content"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"node_modules/vue/dist/vue.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"plugins.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="handlebars"><span class="xml">        <span class="comment">&lt;!-- 引入插件--&gt;</span></span></span></span><br><span class="line">        Vue.use(MyPlugin)</span><br><span class="line"><span class="actionscript">        <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="actionscript">            el: <span class="string">"#app"</span>,</span></span><br><span class="line">            data: &#123;</span><br><span class="line"><span class="actionscript">                content: <span class="string">'hello'</span></span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line"><span class="actionscript">        vm.$myMethod(<span class="string">'ttt'</span>)</span></span><br><span class="line">        Vue.myGlobalMethod()</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 jaytp@qq.com </span>
@@ -490,12 +487,12 @@
 
 
 <div class="article_copyright">
-    <p><span class="copy-title">文章标题:</span>Vue-自定义插件</p>
-    <p><span class="copy-title">文章字数:</span><span class="post-count">251</span></p>
+    <p><span class="copy-title">文章标题:</span>Google身份验证器Python实现</p>
+    <p><span class="copy-title">文章字数:</span><span class="post-count">357</span></p>
     <p><span class="copy-title">本文作者:</span><a  title="Aaron">Aaron</a></p>
-    <p><span class="copy-title">发布时间:</span>2019-12-08, 22:47:27</p>
-    <p><span class="copy-title">最后更新:</span>2019-12-08, 23:32:56</p>
-    <span class="copy-title">原始链接:</span><a class="post-url" href="/2019/12/08/Vue-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8F%92%E4%BB%B6/" title="Vue-自定义插件">http://blog.linuxerbulo.com/2019/12/08/Vue-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8F%92%E4%BB%B6/</a>
+    <p><span class="copy-title">发布时间:</span>2020-01-01, 17:59:17</p>
+    <p><span class="copy-title">最后更新:</span>2020-01-01, 20:57:07</p>
+    <span class="copy-title">原始链接:</span><a class="post-url" href="/2020/01/01/Google%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E5%99%A8Python%E5%AE%9E%E7%8E%B0/" title="Google身份验证器Python实现">http://blog.linuxerbulo.com/2020/01/01/Google%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E5%99%A8Python%E5%AE%9E%E7%8E%B0/</a>
     <p>
         <span class="copy-title">版权声明:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="CC BY-NC-SA 4.0 International" target = "_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
     </p>
